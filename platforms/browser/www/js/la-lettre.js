@@ -1,5 +1,5 @@
 var laLettreFunctions = function(myApp, $$) {
-    var debug = true;
+    var debug = false;
 
     var baseUrl = debug ? 'http://localhost/applilettre/' : 'https://www.robert-schuman.eu/applilettre/';
 
