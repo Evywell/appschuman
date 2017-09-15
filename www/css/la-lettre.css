@@ -274,13 +274,17 @@
     font-size: 13px;
 }
 
-.calendar-popover {
+.popover {
     z-index: 999999;
     border-radius: 0px;
     left: 10px!important;
     right: 10px!important;
     width: auto;
     opacity: 1;
+}
+
+.lang-popover .popover-angle, .calendar-popover .popover-angle  {
+    visibility: hidden;
 }
 
 .calendar-popover::after {
@@ -290,7 +294,7 @@
     left: 11px!important;
 }
 
-.calendar-popover .popover-content .popover-content-lang__head {
+.lang-popover .popover-content .popover-content-lang__head {
     padding: 15px 30px;
     color: #4087c5;
     border-bottom: 1px solid #8ebde7;
@@ -298,11 +302,11 @@
     font-weight: bold;
 }
 
-.calendar-popover .popover-content .popover-content-lang__content {
+.lang-popover .popover-content .popover-content-lang__content {
     padding: 10px;
 }
 
-.calendar-popover .popover-content .popover-content-lang__content .btn-lang-popover {
+.lang-popover .popover-content .popover-content-lang__content .btn-lang-popover {
     display: inline-block;
     width: 100%;
     margin-bottom: 5px;
@@ -315,14 +319,12 @@
     color: #FFF;
 }
 
-.calendar-popover .popover-content .popover-content-lang__content .btn-lang-popover img {
+.lang-popover .popover-content .popover-content-lang__content .btn-lang-popover img {
     padding-right: 10px;
-    width: 18px;
-    height: 18px;
     vertical-align: bottom;
 }
 
-.calendar-popover .popover-content .popover-content-lang__content .btn-lang-popover.disabled {
+.lang-popover .popover-content .popover-content-lang__content .btn-lang-popover.disabled {
     opacity: 0.5;
 }
 

@@ -1,5 +1,5 @@
 var laLettreFunctions = function(myApp, $$) {
-    var debug = false;
+    var debug = true;
 
     var baseUrl = debug ? 'http://localhost/applilettre/' : 'https://www.robert-schuman.eu/applilettre/';
 
@@ -13,7 +13,17 @@ var laLettreFunctions = function(myApp, $$) {
         auteurs: {fr: "Auteurs", en: "Authors", es: "Autores", de: "Autoren", pl: "Autorzy"},
         sommaire: {fr: "Sommaire", en: "Contents", es: "Sumario", de: "Übersicht", pl: "treszczenie"},
         choix_lettre: {fr: "Choix de la Lettre", en: "Choose the Letter", es: "Elección de la carta", de: "Choose the Letter", pl: "Choose the Letter"},
-        versions_disponibles: {fr: "Versions disponibles", en: "Available versions", es: "Versions disponibles", de: "Available versions", pl: "Available versions"}
+        versions_disponibles: {fr: "Versions disponibles", en: "Available versions", es: "Versions disponibles", de: "Available versions", pl: "Available versions"},
+        lire_la_suite: {fr: "Lire la suite", en: "Read More", es: "Read More", de: "Read More", pl: "Read More"},
+        autre_lien: {fr: "Autre lien", en: "Other link", es: "Other link", de: "Other link", pl: "Other link"}
+    };
+
+    var listeMois = {
+        fr: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+        en: ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        es: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        de: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+        pl: ["styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"]
     };
 
     var updateMenu = function () {
@@ -78,6 +88,8 @@ var laLettreFunctions = function(myApp, $$) {
         $$.get(baseUrl + 'last/' + appLang, null, function (data) {
             feedLettre(JSON.parse(data));
         });
+        var mDate = new Date();
+        calendarMonth('', parseMois(mDate.getMonth() + 1), mDate.getFullYear(),mDate);
         myApp.closeModal(modalLang, true);
     }
 
@@ -105,10 +117,9 @@ var laLettreFunctions = function(myApp, $$) {
         }
         div += '<a class="article" id="' + id + '" data-id="' + id + '"><div class="article-titre">' + titre + '</div>';
         div += '<div class="article-contenu hidden">' + contenu;
-        div += '<div class="article-btns"><button class="article-btn" data-href="' + liens[0][appLang + '_lien'] + '">lire la' +
-            ' suite</button>';
+        div += '<div class="article-btns"><button class="article-btn" data-href="' + liens[0][appLang + '_lien'] + '">' + translations.lire_la_suite[appLang] + '</button>';
         if (liens.length > 1) {
-            div += '<button class="article-btn" data-href="' + liens[1][appLang + '_lien'] + '">autre lien</button>'
+            div += '<button class="article-btn" data-href="' + liens[1][appLang + '_lien'] + '">' + translations.autre_lien[appLang] + '</button>'
         }
         div += '</div></div></div></a>';
         if(titre == null) {
@@ -144,7 +155,6 @@ var laLettreFunctions = function(myApp, $$) {
     var dateLoaded = [];
     var divCalendarDate = $$('#calendar-head-date');
     var divLettresCalendar = $$('.lettres');
-    var listeMois = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
     var parseMois = function (mois) {
         if (mois.toString().length == 1) {
@@ -205,7 +215,7 @@ var laLettreFunctions = function(myApp, $$) {
     $$('#calendar-next').on('click', calendarNextMonth);
 
     var feedCalendar = function (lettres, d) {
-        divCalendarDate.text(listeMois[d.getMonth()] + " " + d.getFullYear());
+        divCalendarDate.text(listeMois[appLang][d.getMonth()] + " " + d.getFullYear());
         if(d.length < 1) {
             return;
         }
@@ -329,7 +339,8 @@ var laLettreFunctions = function(myApp, $$) {
         e.preventDefault();
         var link = this;
         scrollToTop();
-        modalLang = myApp.popover('.popover-lang', link);
+        modalLang = myApp.popover('.lang-popover', link);
+        $$('.lang-popover').css('top', '50%').transform('translateY(-50%)');
     })
 
     $$('.open-calendar').on('click', function (e) {
@@ -337,6 +348,7 @@ var laLettreFunctions = function(myApp, $$) {
         var link = this;
         scrollToTop();
         modalCalendar = myApp.popover('.calendar-popover', link);
+        $$('.calendar-popover').css('top', '50%').transform('translateY(-50%)');
     })
 
     $$.get(baseUrl + 'last/' + appLang, null, function (data) {
