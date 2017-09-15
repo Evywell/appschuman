@@ -17,6 +17,8 @@ var lettreView = myApp.addView('.lettre-view', {
     animatePages: false
 });
 
+var actuView = myApp.addView('.actu-view');
+
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");

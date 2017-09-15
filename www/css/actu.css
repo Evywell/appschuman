@@ -1,0 +1,55 @@
+.actu .page-content {
+    padding: 0;
+    line-height: 1.5;
+}
+
+.listActu {
+    padding: 0;
+    list-style-type: none;
+    background: #FFF;
+    overflow-y: scroll;
+    margin: 50px 0 0;
+}
+
+.listActu .listActu-lien {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+    color: inherit;
+}
+
+.listActu .listActu-picto, .listActu .listActu-texte {
+    display: table-cell;
+}
+
+.listActu .listActu-picto {
+    width: 100px;
+    vertical-align: top;
+}
+.listActu .listActu-picto img {
+    display: block;
+    width: 100%;
+    margin: auto;
+}
+
+.shadow {
+    box-shadow: 0 0 8px #ccc;
+    border-radius: 4px;
+}
+
+.listActu .listActu-texte {
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+.listActu .listActu-texte .titre-apercu {
+    font-weight: 500;
+    color: #045ba6;
+}
+
+.listActu .listActu-texte .texte-apercu .pub-date-apercu {
+    display: block;
+    font-size: small;
+}

@@ -11,7 +11,7 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
     <meta http-equiv="Content-Security-Policy"
-          content="default-src *; style-src 'self' http://* 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
+          content="default-src *; style-src 'self' http://* 'unsafe-inline'; img-src 'self' data: https: http:; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
     <!-- Required meta tags-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
@@ -32,6 +32,7 @@
 
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/la-lettre.css">
+    <link rel="stylesheet" href="css/actu.css">
 </head>
 
 <body>
@@ -44,7 +45,7 @@
     <div class="panel panel-left panel-reveal">
         <img class="panel-logo" src="img/logo-fr.jpg" alt="">
         <div class="content">
-            <a href="" class="close-panel">actu'</a>
+            <a href="actu.html" class="close-panel">actu'</a>
             <a href="la-lettre.html" class="menu-la-lettre close-panel">La Lettre</a>
         </div>
     </div>
@@ -146,6 +147,7 @@
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
 
+    <script src="js/actu.js"></script>
     <script src="js/la-lettre.js"></script>
 </body>
 
