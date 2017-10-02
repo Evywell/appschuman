@@ -65,12 +65,27 @@
     height: auto;
 }
 
+.panel .content {
+    min-height: 550px;
+}
+
 .panel .content a {
     display: inline-block;
     width: 100%;
-    padding: 12px 10px;
+    padding: 14px 10px;
     font-size: 14px;
     border-bottom: 1px solid #222;
     text-transform: uppercase;
     color: #FFF;
+}
+
+.panel .content .separator {
+    padding: 2px 5px;
+    background-color: #0005d0;
+    color: #fff;
+}
+
+.actu .page-content, .publications .page-content, .evenements .page-content, .opinions .page-content, .elections .page-content, .dossiers-pedagogiques .page-content {
+    padding: 0;
+    line-height: 1.5;
 }

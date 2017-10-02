@@ -1,9 +1,4 @@
-.actu .page-content {
-    padding: 0;
-    line-height: 1.5;
-}
-
-.listActu {
+.list {
     padding: 0;
     list-style-type: none;
     background: #FFF;
@@ -11,7 +6,7 @@
     margin: 50px 0 0;
 }
 
-.listActu .listActu-lien {
+.list .list-lien {
     position: relative;
     display: block;
     padding: 10px 15px;
@@ -20,15 +15,15 @@
     color: inherit;
 }
 
-.listActu .listActu-picto, .listActu .listActu-texte {
+.list .list-picto, .list .list-texte {
     display: table-cell;
 }
 
-.listActu .listActu-picto {
+.list .list-picto {
     width: 100px;
     vertical-align: top;
 }
-.listActu .listActu-picto img {
+.list .list-picto img {
     display: block;
     width: 100%;
     margin: auto;
@@ -39,17 +34,33 @@
     border-radius: 4px;
 }
 
-.listActu .listActu-texte {
+.list .list-texte {
     padding-left: 10px;
     vertical-align: middle;
 }
 
-.listActu .listActu-texte .titre-apercu {
+.list .list-texte .titre-apercu {
     font-weight: 500;
     color: #045ba6;
 }
 
-.listActu .listActu-texte .texte-apercu .pub-date-apercu {
+.list .list-texte .texte-apercu .pub-date-apercu {
     display: block;
     font-size: small;
+}
+
+.article .rsButtonParent {
+    text-align: right;
+    margin: 10px auto;
+}
+
+.article .rsButtonParent a {
+    min-width: 100px;
+    display: inline-block;
+    text-decoration: none;
+    background: #007ac7;
+    color: #f3f3f3;
+    text-align: center;
+    padding: 2px 5px;
+    border-radius: 5px;
 }

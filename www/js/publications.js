@@ -1,12 +1,10 @@
-var actuFunctions = function (myApp, $$) {
-    var actuUrl = "http://www.euscope.eu/json/js.actualites.php";
+var publicationsFunctions = function (myApp, $$) {
+    var actuUrl = "http://www.euscope.eu/json/js.publications.php";
     var lang = 'fr';
-
-    var mode = 'liste';
 
     var articles = [];
     var currentArticle = null;
-    var listActu = $$('.list');
+    var listPub = $$('.list');
     var divArticle = $$('.article');
     var divArticleNav = $$('.article-nav');
     var divOpenPanel = $$('.open-panel');
@@ -14,24 +12,23 @@ var actuFunctions = function (myApp, $$) {
     var articleNextBtn =  $$('.article-next');
     var articleBackBtn = $$('.goBack');
 
-    var launchWebView = function (href) {
-        var ref = cordova.InAppBrowser.open(encodeURI(href), "_system", 'location=yes');
-        ref.show();
-    }
+    // Modes: 'liste' et 'show'
+    var mode = 'liste';
 
     var changeArticle = function (id) {
         if (id < 0 || id >= articles.length) {
             return;
         }
         loadArticle(id);
+        document.querySelector('.publications .article').scrollTop = 0;
     }
 
     articleBackBtn.on('click', function (e) {
-        e.preventDefault();
-        mode = 'liste';
-        updateNavbar();
-        divArticle.removeClass('show');
-        listActu.removeClass('hidden');
+       e.preventDefault();
+       mode = 'liste';
+       updateNavbar();
+       divArticle.removeClass('show');
+       listPub.removeClass('hidden');
     });
 
     articlePrevBtn.on('click', function (e) {
@@ -78,7 +75,7 @@ var actuFunctions = function (myApp, $$) {
         div += '<div class="picto"><img src="' + image + '"></div>';
         div += '<div class="date-pub">' + article.pubDate + '</div>';
         div += '<div class="description">' + article.description + '</div></div>';
-        div += '<div class="infos"></div>';
+        div += '<div class="infos"><strong><em>Par:</em></strong><br />' + article.auteur + '</div>';
         div += '<div class="contenu inside">' + article.content + '</div></div>';
         return div;
     }
@@ -87,62 +84,65 @@ var actuFunctions = function (myApp, $$) {
         currentArticle = id;
         divArticle.empty();
         divArticle.html(feedArticle(articles[id]));
-        $$('.rsButtonParent a').on('click', function (e) {
-            e.preventDefault();
-            launchWebView(this.getAttribute('href'));
+        $$('.ancre_href').on('click', function (e) {
+           e.preventDefault();
+           document.querySelector(this.getAttribute('href')).scrollIntoView(true);
         });
         divArticle.addClass('fadeIn show');
         mode = 'show';
         updateNavbar();
-        listActu.addClass('hidden');
+        listPub.addClass('hidden');
         // Enlève le fadeIn car sinon problème !
         divArticle.animationEnd(function () {
             divArticle.removeClass('fadeIn');
         })
     }
 
-    var clickLoadActu = function (e) {
+    var clickLoadArticle = function (e) {
         e.preventDefault();
         loadArticle(this.dataset.article);
     }
 
-    var feedActu = function (actu, index) {
+    var feedPublication = function (article, index) {
         var image;
         var div = '<li><a href="#article' + index + '" data-article="' + index + '" class="list-lien">';
-        if (actu.image) {
-            image = actu.image;
+        if (article.image) {
+            image = article.image;
         } else {
             image = "img/defaut-200-150.png";
         }
         div += '<div class="list-picto"><img src="' + image + '" class="shadow"></div>';
-        div += '<div class="list-texte"><span class="titre-apercu">' + actu.title + '</span>';
+        div += '<div class="list-texte"><span class="titre-apercu">' + article.title + '</span>';
         div += '<span class="texte-apercu">';
-        if (actu.pubDate) {
-            div += '<span class="pub-date-apercu">' + actu.pubDate + '</span>';
+        if (article.pubDate) {
+            div += '<span class="pub-date-apercu">' + article.pubDate + '</span>';
         }
         div += '</span></div></a></li>';
         return div;
     }
 
-    var loadActu = function (lang) {
+    var loadPublications = function (lang) {
         mode = 'liste';
         updateNavbar();
-        listActu.empty();
+        // On vide la liste
+        listPub.empty();
         $$.get(actuUrl, {lang: lang}, function (data){
+            console.log(JSON.parse(data));
             articles = JSON.parse(data).articles;
-            for (var i = 0; i < articles.length; i++) {
-                listActu.append(feedActu(articles[i], i));
+            for (var i in articles) {
+                listPub.append(feedPublication(articles[i], i));
             }
             // Ajout des évenements du clique
-            $$('.list-lien').on('click', clickLoadActu);
-        }, function (err) {
-            console.log(err);
-        });
+            $$('.list-lien').on('click', clickLoadArticle);
+        },function (err) {
+            console.error(err);
+        })
     }
 
-    loadActu(lang);
+    loadPublications(lang);
+
 }
 
-myApp.onPageInit('actu', function(page) {
-    actuFunctions(myApp, $$);
+myApp.onPageInit('publications', function(page) {
+    publicationsFunctions(myApp, $$);
 });
