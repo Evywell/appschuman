@@ -1,4 +1,4 @@
-.article {
+.publications .article, .actu .article, .evenements .article, .opinions .article, .elections .article {
     visibility: hidden;
     position: absolute;
     background: #FFF;
@@ -7,33 +7,33 @@
     line-height: 1.5;
 }
 
-.article-content {
+.publications .article-content, .actu .article-content , .evenements .article-content, .opinions .article-content, .elections .article-content  {
     position: relative;
     width: 100%;
     word-wrap: break-word;
 }
 
-.article strong {
+.publications .article strong, .actu .article strong, .evenements .article strong, .opinions .article strong, .elections .article strong {
     font-weight: 500;
 }
 
-.article .inside {
+.publications .article .inside, .actu .article .inside,  .evenements .article .inside,  .opinions .article .inside, .elections .article .inside {
     padding: 0 15px;
 }
 
-.article h1 {
+.publications .article h1, .actu .article h1, .evenements .article h1, .opinions .article h1, .elections .article h1 {
     font-weight: 500;
     color: #045ba6;
     font-size: large;
     margin-bottom: 10px;
 }
 
-.article .picto {
+.publications .article .picto, .actu .article .picto, .evenements .article .picto, .opinions .article .picto, .elections .article .picto {
     max-width: 200px;
     margin: 0 auto;
 }
 
-.article .picto img {
+.publications .article .picto img, .actu .article .picto img, .evenements .article .picto img, .opinions .article .picto img, .elections .article .picto img {
     display: block;
     width: 100%;
     border: 0;
@@ -43,13 +43,16 @@
     border-radius: 4px;
 }
 
-.article .datePub, .article .description {
+.publications .article .datePub, .publications .article .description,
+.actu .article .datePub, .actu .description , .evenements .article .datePub,
+.evenements .description, .opinions .article .datePub, .opinions .description
+.elections .article .datePub, .elections .article .description{
     margin: auto;
     text-align: justify;
     font-size: small;
 }
 
-.article .infos {
+.publications .article .infos, .actu .article .infos, .evenements .article .infos, .opinions .article .infos, .elections .article .infos {
     margin: 15px auto;
     padding: 10px 15px;
     border-top: 1px inset #ccc;
@@ -58,7 +61,7 @@
     font-size: small;
 }
 
-.article .nbp {
+.publications .article .nbp, .actu .article .nbp, .evenements .article .nbp, .opinions .article .nbp, .elections .article .nbp{
     margin: 10px auto;
     padding: 10px 0px;
     font-size: small;
@@ -132,6 +135,6 @@
     border-top: 10px solid transparent;
 }
 
-.article img {
+.publications .article img {
     width: 100%;
 }

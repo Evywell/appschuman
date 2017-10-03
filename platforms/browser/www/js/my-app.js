@@ -24,9 +24,14 @@ var evenementsView = myApp.addView('.evenements-view');
 var opinionsView = myApp.addView('.opinons-view');
 var electionsView = myApp.addView('.elections-view');
 var dossiersView = myApp.addView('.dossiers-predagogique');
+var rsView = myApp.addView('.rs');
+var librairieView = myApp.addView('.librairie');
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
+    $$('.open-panel').on('click', function (e) {
+        e.preventDefault();
+    })
     actuFunctions();
 });
 

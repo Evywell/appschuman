@@ -85,7 +85,26 @@
     color: #fff;
 }
 
-.actu .page-content, .publications .page-content, .evenements .page-content, .opinions .page-content, .elections .page-content, .dossiers-pedagogiques .page-content {
+.actu .page-content,
+.publications .page-content,
+.evenements .page-content,
+.opinions .page-content,
+.elections .page-content,
+.dossiers-pedagogiques .page-content,
+.rs .page-content,
+.librairie .page-content
+{
     padding: 0;
     line-height: 1.5;
+}
+
+.rs-button {
+    min-width: 100px;
+    display: inline-block;
+    text-decoration: none;
+    background: #007ac7;
+    color: #f3f3f3;
+    text-align: center;
+    padding: 2px 5px;
+    border-radius: 5px;
 }

@@ -11,7 +11,6 @@ var dossiersFunctions = function (myApp, $$) {
     }
 
     var feedDossier = function (dossier) {
-        console.log(dossier);
         var image;
         if (dossier.image) {
             image = dossier.image;
