@@ -7,7 +7,6 @@ var dossiersFunctions = function (myApp, $$) {
 
     var launchWebView = function (href) {
         var ref = cordova.InAppBrowser.open(encodeURI(href), "_system", 'location=yes');
-        ref.show();
     }
 
     var feedDossier = function (dossier) {
