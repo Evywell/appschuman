@@ -80,7 +80,6 @@
                     <h1 class="center sliding">Fondation Schuman</h1>
                 </div>
             </div>
-            <div class="msg" style="position: absolute; top:0; left:0; right:0; z-index: 3000000000;"></div>
             <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
             <div class="pages navbar-through toolbar-through"><!-- Top Navbar-->
                 <!-- Page, "data-page" contains page name -->
@@ -157,49 +156,6 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
-
-    <!-- firebase -->
-    <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-messaging.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyCmMA5YkfV3frsFlDA8v1V-teDwlZzuwMI",
-            authDomain: "schumanlettre.firebaseapp.com",
-            databaseURL: "https://schumanlettre.firebaseio.com",
-            projectId: "schumanlettre",
-            storageBucket: "schumanlettre.appspot.com",
-            messagingSenderId: "847561506467"
-        };
-        firebase.initializeApp(config);
-
-        const messaging = firebase.messaging();
-        messaging.requestPermission()
-            .then(function () {
-                alert("Have permission");
-                console.log(messaging.getToken());
-                return messaging.getToken();
-            })
-            .then(function (token) {
-                document.querySelector('.msg').innerHTML = token;
-            })
-            .catch(function (err) {
-                console.log(err);
-            })
-            .catch(function (err) {
-                alert("Error " + err);
-                document.querySelector('.msg').innerHTML = err;
-            })
-
-
-        messaging.onMessage(function (payload) {
-            alert('onMessage: ' + payload);
-        });
-    </script>
-    <!-- /firebase -->
 
     <script src="js/actu.js"></script>
     <script src="js/publications.js"></script>

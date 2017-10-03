@@ -2,6 +2,15 @@ var publicationsFunctions = function (myApp, $$) {
     var actuUrl = "http://www.euscope.eu/json/js.publications.php";
     var lang = 'fr';
 
+    var textes = {
+        fr: {
+            header_title: "Publications",
+            auteur: "Par"
+        }
+    };
+
+    $$('.navbar .center').html(textes[lang]['header_title']);
+
     var articles = [];
     var currentArticle = null;
     var listPub = $$('.list');
@@ -75,7 +84,7 @@ var publicationsFunctions = function (myApp, $$) {
         div += '<div class="picto"><img src="' + image + '"></div>';
         div += '<div class="date-pub">' + article.pubDate + '</div>';
         div += '<div class="description">' + article.description + '</div></div>';
-        div += '<div class="infos"><strong><em>Par:</em></strong><br />' + article.auteur + '</div>';
+        div += '<div class="infos"><strong><em>' + textes[lang]['auteur'] + '</em></strong><br />' + article.auteur + '</div>';
         div += '<div class="contenu inside">' + article.content + '</div></div>';
         return div;
     }

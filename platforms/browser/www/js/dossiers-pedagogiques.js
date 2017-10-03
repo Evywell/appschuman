@@ -3,6 +3,12 @@ var dossiersFunctions = function (myApp, $$) {
     var lang = 'fr';
     var dossiers = [];
 
+    var textes = {
+        fr: { header_title: "Dossiers pédagogiques" }
+    };
+
+    $$('.navbar .center').html(textes[lang]['header_title']);
+
     var listDossiers = $$('.dossiers');
 
     var launchWebView = function (href) {

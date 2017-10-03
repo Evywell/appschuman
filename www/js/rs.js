@@ -5,6 +5,15 @@ var rsFunctions = function (myApp, $$) {
 
     var listDossiers = $$('.dossiers');
 
+    var textes = {
+        fr: {
+            header_title: "Robert Schuman",
+            en_savoir_plus: "En savoir plus"
+        }
+    };
+
+    $$('.navbar .center').html(textes[lang]['header_title']);
+
     var launchWebView = function (href) {
         var ref = cordova.InAppBrowser.open(encodeURI(href), "_system", 'location=yes');
     }
@@ -14,7 +23,7 @@ var rsFunctions = function (myApp, $$) {
         div += '<h1>' + dossier.nom + '</h1>';
         div += '<div class="content">' + dossier.presentation + '</div>';
         if (dossier.url) {
-            div += '<div class="btns"><a href="' + dossier.url + '">En savoir plus</a></div>';
+            div += '<div class="btns"><a href="' + dossier.url + '">' + textes[lang]['en_savoir_plus'] + '</a></div>';
         }
         div += '</div>';
         return div;

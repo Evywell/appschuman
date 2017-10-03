@@ -2,6 +2,10 @@ var actuFunctions = function (myApp, $$) {
     var actuUrl = "http://www.euscope.eu/json/js.actualites.php";
     var lang = 'fr';
 
+    var textes = {
+        fr: { header_title: "Actu'" }
+    };
+
     var mode = 'liste';
 
     var articles = [];
@@ -13,6 +17,8 @@ var actuFunctions = function (myApp, $$) {
     var articlePrevBtn =  $$('.article-prev');
     var articleNextBtn =  $$('.article-next');
     var articleBackBtn = $$('.goBack');
+
+    $$('.navbar .center').html(textes[lang]['header_title']);
 
     var launchWebView = function (href) {
         var ref = cordova.InAppBrowser.open(encodeURI(href), "_system", 'location=yes');

@@ -2,6 +2,25 @@ var librairieFunctions = function (myApp, $$) {
     var libUrl = "http://www.euscope.eu/json/js.librairie.php";
     var lang = 'fr';
 
+    var textes = {
+        fr: {
+            header_title: "Librairie",
+            autres_publication: "Autres publications",
+            notes: "Notes",
+            rapport_schuman: "Le Rapport Schuman",
+            pour_europe: "Pour l'Europe",
+            editeur: "Editeur",
+            nb_pages: "Nombre de pages",
+            commander: "En savoir plus en commander"
+        }
+    };
+
+    $$('.navbar .center').html(textes[lang]['header_title']);
+    $$('#autres_publications').html(textes[lang]['autres_publication']);
+    $$('#notes').html(textes[lang]['notes']);
+    $$('#rapport_schuman').html(textes[lang]['rapport_schuman']);
+    $$('#pour_europe').html(textes[lang]['pour_europe']);
+
     var articles = [];
     var currentArticle = null;
     var listArticle = $$('.list');
@@ -86,11 +105,11 @@ var librairieFunctions = function (myApp, $$) {
         var div = '<div class="article-content"><div class="inside"><h1>' + article.title + '</h1>';
         div += '<div class="article-infos"><div class="picto"><img src="' + article.image + '"></div>';
         div += '<div class="date-pub">' + article.pubDate + '</div>';
-        div += '<div class="editeur">Editeur : ' + article.editeur + '</div>';
-        div += '<div class="nbpages">Nombre de pages : ' + article.nb_pages + '</div>';
+        div += '<div class="editeur">' + textes[lang]['editeur'] + ' : ' + article.editeur + '</div>';
+        div += '<div class="nbpages">' + textes[lang]['nb_pages'] + ' : ' + article.nb_pages + '</div>';
         div += '<div class="isbn">ISBN : ' + article.isbn + '</div></div>';
         div += '<div class="contenu inside">' + article.content + '</div>';
-        div += '<div class="btns"><a href="https://www.robert-schuman.eu' + article.url + '" class="rs-button">En savoir plus et commander</a></div></div>';
+        div += '<div class="btns"><a href="https://www.robert-schuman.eu' + article.url + '" class="rs-button">' + textes[lang]['commander'] + '</a></div></div>';
         return div;
     }
 

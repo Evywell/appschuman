@@ -2,6 +2,13 @@ var electionsFunctions = function (myApp, $$) {
     var eveUrl = "http://www.euscope.eu/json/js.elections.php";
     var lang = 'fr';
 
+
+    var textes = {
+        fr: { header_title: "Elections", article_auteur: "Par" }
+    };
+
+    $$('.navbar .center').html(textes[lang]['header_title']);
+
     var articles = [];
     var currentArticle = null;
     var listElections = $$('.list');
@@ -74,7 +81,7 @@ var electionsFunctions = function (myApp, $$) {
         }
         div += '<div class="picto"><img src="' + image + '"></div>';
         div += '<div class="date-pub">' + article.pubDate + '</div></div>';
-        div += '<div class="infos"><strong><em>Par:</em></strong><br />' + article.auteur + '</div>';
+        div += '<div class="infos"><strong><em>' + textes[lang]['article_auteur'] + ':</em></strong><br />' + article.auteur + '</div>';
         div += '<div class="contenu inside">' + article.content + '</div></div>';
         return div;
     }

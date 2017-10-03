@@ -2,6 +2,12 @@ var evenementsFunctions = function (myApp, $$) {
     var eveUrl = "http://www.euscope.eu/json/js.evenements.php";
     var lang = 'fr';
 
+    var textes = {
+        fr: { header_title: "Evenements" }
+    };
+
+    $$('.navbar .center').html(textes[lang]['header_title']);
+
     var articles = [];
     var currentArticle = null;
     var listEve = $$('.list');
