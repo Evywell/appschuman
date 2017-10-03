@@ -31,12 +31,34 @@ var librairieView = myApp.addView('.librairie');
 $$(document).on('deviceready', function() {
     $$('.open-panel').on('click', function (e) {
         e.preventDefault();
-    })
-    actuFunctions();
+    });
+    actuFunctions(myApp, $$);
+    console.log('ready');
+    var push = PushNotification.init({
+        android: {},
+        browser: {
+            pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+        },
+        ios: {
+            alert: "true",
+            badge: "true",
+            sound: "true"
+        },
+        windows: {}
+    });
+
+    push.on('registration', function (data) {
+        document.querySelector('body').innerHTML = data.registrationId;
+        console.log(data);
+    });
+
+    push.on('notifications', function (data) {
+        console.log(data);
+    });
+
+    push.on('error', function (e) {
+
+        document.querySelector('body').innerHTML = e;
+        console.log("Erreur", e);
+    });
 });
-
-// Option 1. Using page callback for page (for "about" page in this case) (recommended way):
-myApp.onPageInit('about', function (page) {
-    // Do something here for "about" page
-
-})

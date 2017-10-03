@@ -83,8 +83,13 @@ var publicationsFunctions = function (myApp, $$) {
         }
         div += '<div class="picto"><img src="' + image + '"></div>';
         div += '<div class="date-pub">' + article.pubDate + '</div>';
-        div += '<div class="description">' + article.description + '</div></div>';
-        div += '<div class="infos"><strong><em>' + textes[lang]['auteur'] + '</em></strong><br />' + article.auteur + '</div>';
+        if (article.description) {
+            div += '<div class="description">' + article.description + '</div>';
+        }
+        div += '</div>';
+        if (article.auteur) {
+            div += '<div class="infos"><strong><em>' + textes[lang]['auteur'] + '</em></strong><br />' + article.auteur + '</div>';
+        }
         div += '<div class="contenu inside">' + article.content + '</div></div>';
         return div;
     }
@@ -95,6 +100,7 @@ var publicationsFunctions = function (myApp, $$) {
         divArticle.html(feedArticle(articles[id]));
         $$('.ancre_href').on('click', function (e) {
            e.preventDefault();
+           console.log(this.getAttribute('href'));
            document.querySelector(this.getAttribute('href')).scrollIntoView(true);
         });
         divArticle.addClass('fadeIn show');

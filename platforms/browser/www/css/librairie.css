@@ -41,6 +41,10 @@
     margin: 10px 0;
 }
 
+.librairie .list {
+    margin: 50px 0;
+}
+
 .filtres {
     z-index: 3;
     position: fixed;
