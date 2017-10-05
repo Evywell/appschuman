@@ -17,7 +17,8 @@
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
         "phonegap-plugin-push": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "SENDER_ID": "847561506467",
+            "PACKAGE_NAME": "com.schuman.app"
         }
     },
     "dependent_plugins": {}

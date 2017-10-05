@@ -11,7 +11,9 @@
             "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
             "cordova-plugin-inappbrowser": {},
-            "phonegap-plugin-push": {}
+            "phonegap-plugin-push": {
+                "SENDER_ID": "847561506467"
+            }
         }
     },
     "dependencies": {
@@ -19,6 +21,6 @@
         "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-statusbar": "~1.0.1",
         "cordova-plugin-whitelist": "~1.2.0",
-        "phonegap-plugin-push": "^2.0.0"
+        "phonegap-plugin-push": "^1.9.0"
     }
 }
