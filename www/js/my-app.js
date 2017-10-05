@@ -10,7 +10,7 @@ var mainView = myApp.addView('.view-main', {
     animatePages: false
 });
 
-mainView.router.load({url: 'actu.html', reload: true})
+mainView.router.load({ url: 'actu.html', reload: true })
 
 // Vue de la lettre
 var lettreView = myApp.addView('.lettre-view', {
@@ -29,7 +29,7 @@ var librairieView = myApp.addView('.librairie');
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
-    $$('.open-panel').on('click', function (e) {
+    $$('.open-panel').on('click', function(e) {
         e.preventDefault();
     });
     actuFunctions(myApp, $$);
@@ -47,16 +47,16 @@ $$(document).on('deviceready', function() {
         windows: {}
     });
 
-    push.on('registration', function (data) {
+    push.on('registration', function(data) {
         document.querySelector('body').innerHTML = data.registrationId;
         console.log(data);
     });
 
-    push.on('notifications', function (data) {
+    push.on('notifications', function(data) {
         console.log(data);
     });
 
-    push.on('error', function (e) {
+    push.on('error', function(e) {
 
         document.querySelector('body').innerHTML = e;
         console.log("Erreur", e);
