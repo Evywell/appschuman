@@ -1,26 +1,24 @@
 {
-    "name": "com.phonegap.helloworld",
+    "name": "com.schuman.app",
     "version": "1.0.0",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "displayName": "helloworld",
+    "displayName": "Fondation Robert Schuman",
     "cordova": {
         "plugins": {
             "cordova-plugin-console": {},
             "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
             "cordova-plugin-inappbrowser": {},
-            "phonegap-plugin-push": {
-                "SENDER_ID": "847561506467"
-            }
+            "cordova-plugin-fcm": {}
         }
     },
     "dependencies": {
         "cordova-plugin-console": "~1.0.1",
+        "cordova-plugin-fcm": "^2.1.2",
         "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-statusbar": "~1.0.1",
-        "cordova-plugin-whitelist": "~1.2.0",
-        "phonegap-plugin-push": "^1.9.0"
+        "cordova-plugin-whitelist": "~1.2.0"
     }
 }

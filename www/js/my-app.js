@@ -32,8 +32,11 @@ $$(document).on('deviceready', function() {
     $$('.open-panel').on('click', function(e) {
         e.preventDefault();
     });
+
     actuFunctions(myApp, $$);
+
     console.log('ready');
+    /*
     var push = PushNotification.init({
         android: {},
         browser: {
@@ -60,5 +63,38 @@ $$(document).on('deviceready', function() {
 
         document.querySelector('body').innerHTML = e;
         console.log("Erreur", e);
+    });
+    */
+
+    //FCMPlugin.onTokenRefresh( onTokenRefreshCallback(token) );
+    //Note that this callback will be fired everytime a new token is generated, including the first time.
+    FCMPlugin.onTokenRefresh(function(token) {
+        alert(token);
+    });
+
+    //FCMPlugin.getToken( successCallback(token), errorCallback(err) );
+    //Keep in mind the function will return null if the token has not been established yet.
+    FCMPlugin.getToken(function(token) {
+        alert(token);
+    });
+
+    //FCMPlugin.subscribeToTopic( topic, successCallback(msg), errorCallback(err) );
+    //All devices are subscribed automatically to 'all' and 'ios' or 'android' topic respectively.
+    //Must match the following regular expression: "[a-zA-Z0-9-_.~%]{1,900}".
+    // FCMPlugin.subscribeToTopic('topicExample');
+
+    //FCMPlugin.unsubscribeFromTopic( topic, successCallback(msg), errorCallback(err) );
+    // FCMPlugin.unsubscribeFromTopic('topicExample');
+
+    //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
+    //Here you define your application behaviour based on the notification data.
+    FCMPlugin.onNotification(function(data) {
+        if (data.wasTapped) {
+            //Notification was received on device tray and tapped by the user.
+            alert(JSON.stringify(data));
+        } else {
+            //Notification was received in foreground. Maybe the user needs to be notified.
+            alert(JSON.stringify(data));
+        }
     });
 });
