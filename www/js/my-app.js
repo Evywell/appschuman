@@ -13,12 +13,12 @@ var mainView = myApp.addView('.view-main', {
 mainView.router.load({ url: 'actu.html', reload: true })
 
 // Vue de la lettre
-var lettreView = myApp.addView('.lettre-view', {
+/*var lettreView = myApp.addView('.lettre-view', {
     // Désactivation de l'animation lors du clique sur le lien du side panel
     animatePages: false
-});
+});*/
 
-var actuView = myApp.addView('.actu-view');
+/*var actuView = myApp.addView('.actu-view');
 var publicationsView = myApp.addView('.publications-view');
 var evenementsView = myApp.addView('.evenements-view');
 var opinionsView = myApp.addView('.opinons-view');
@@ -26,7 +26,7 @@ var electionsView = myApp.addView('.elections-view');
 var dossiersView = myApp.addView('.dossiers-predagogique');
 var rsView = myApp.addView('.rs');
 var librairieView = myApp.addView('.librairie');
-
+*/
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     $$('.open-panel').on('click', function(e) {
