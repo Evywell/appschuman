@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.schuman.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.digiplace.fondation-Robert-Schuman" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Fondation Schuman</name>
     <description>
-        Application de la Fondation Robert Schuman
+        Application de la Fondation Robert Schuman (version 2017)
     </description>
-    <author email="dev-android@digiplace.fr" href="http://cordova.io">
+    <author email="dev-android@digiplace.fr" href="http://digiplace.eu">
         Digiplace France
     </author>
     <content src="index.html" />
