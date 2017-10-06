@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:847561506467:android:38a3c47094de3440",
+        "mobilesdk_app_id": "1:847561506467:android:327ff3075b23b93c",
         "android_client_info": {
-          "package_name": "com.schuman.app"
+          "package_name": "com.digiplace.fondation_Robert_Schuman"
         }
       },
       "oauth_client": [
