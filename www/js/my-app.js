@@ -95,12 +95,19 @@ $$(document).on('deviceready', function() {
     //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
     //Here you define your application behaviour based on the notification data.
     FCMPlugin.onNotification(function(data) {
-        if (data.wasTapped) {
-            //Notification was received on device tray and tapped by the user.
-            alert(JSON.stringify(data));
-        } else {
-            //Notification was received in foreground. Maybe the user needs to be notified.
-            alert(JSON.stringify(data));
+            if (data.wasTapped) {
+                //Notification was received on device tray and tapped by the user.
+                alert(JSON.stringify(data));
+            } else {
+                //Notification was received in foreground. Maybe the user needs to be notified.
+                alert(JSON.stringify(data));
+            }
+        },
+        function(msg) {
+            alert(JSON.stringify(msg));
+        },
+        function(err) {
+            alert("Erreur onNotification :\n" + err);
         }
-    });
+    );
 });
