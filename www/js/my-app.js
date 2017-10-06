@@ -81,7 +81,7 @@ $$(document).on('deviceready', function() {
     //FCMPlugin.subscribeToTopic( topic, successCallback(msg), errorCallback(err) );
     //All devices are subscribed automatically to 'all' and 'ios' or 'android' topic respectively.
     //Must match the following regular expression: "[a-zA-Z0-9-_.~%]{1,900}".
-    // FCMPlugin.subscribeToTopic('topicExample');
+    FCMPlugin.subscribeToTopic('topicExample');
 
     //FCMPlugin.unsubscribeFromTopic( topic, successCallback(msg), errorCallback(err) );
     // FCMPlugin.unsubscribeFromTopic('topicExample');
