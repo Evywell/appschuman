@@ -160,4 +160,5 @@ var publicationsFunctions = function (myApp, $$) {
 
 myApp.onPageInit('publications', function(page) {
     publicationsFunctions(myApp, $$);
+    activeBandeau();
 });

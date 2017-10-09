@@ -146,4 +146,5 @@ var electionsFunctions = function (myApp, $$) {
 
 myApp.onPageInit('elections', function(page) {
     electionsFunctions(myApp, $$);
+    activeBandeau();
 });

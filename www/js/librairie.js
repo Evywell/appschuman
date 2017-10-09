@@ -185,4 +185,5 @@ var librairieFunctions = function (myApp, $$) {
 
 myApp.onPageInit('librairie', function(page) {
     librairieFunctions(myApp, $$);
+    activeBandeau();
 });

@@ -144,4 +144,5 @@ var evenementsFunctions = function (myApp, $$) {
 
 myApp.onPageInit('evenements', function(page) {
     evenementsFunctions(myApp, $$);
+    activeBandeau();
 });

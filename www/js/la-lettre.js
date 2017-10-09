@@ -42,11 +42,31 @@ var laLettreFunctions = function(myApp, $$) {
         application.scrollTop = 0;
     }
 
+    function launchNavigator (href) {
+        cordova.InAppBrowser.open(encodeURI(href), "_system", 'location=yes');
+    }
+
     var launchWebView = function (href) {
         var ref = cordova.InAppBrowser.open(encodeURI(href), "_blank", 'location=yes');
-        ref.addEventListener('loadstart', function (e) {
-        });
         ref.show();
+
+        setTimeout(function () {
+            var body = document.querySelector('body');
+            var element = document.createElement('div')
+            element.style.position = "absolute";
+            element.style.left = "0";
+            element.style.right = "0";
+            element.style.bottom = "0";
+            element.style.height = "10vh";
+            element.style.background = "#FFF";
+            element.style.zIndex = "99999999999999999999999";
+            element.innerHTML = '<a data-href="' + href + '">Si la page ne s\'affiche pas, cliquez ici</a>';
+            body.appendChild(element);
+            element.addEventListener('click', function () {
+                launchNavigator(this.childNodes[0].dataset.href);
+            });
+        }, 2000);
+
     }
 
     // Lettre courante
@@ -273,8 +293,12 @@ var laLettreFunctions = function(myApp, $$) {
             return el.langue == appLang;
         }).titre;
         $$('.lettre-head .lettre-titre').text(titre);
-        var auteurs = feedAuteurs(data.auteurs);
-        $$('.lettre-head .lettre-soustitre').text((data.auteurs.length > 1 ? translations.auteurs[appLang] : translations.auteur[appLang]) + " : " + auteurs);
+        if (data.auteurs.length > 0) {
+            var auteurs = feedAuteurs(data.auteurs);
+            $$('.lettre-head .lettre-soustitre').text((data.auteurs.length > 1 ? translations.auteurs[appLang] : translations.auteur[appLang]) + " : " + auteurs);
+        } else {
+            $$('.lettre-head .lettre-soustitre').text('');
+        }
         feedAgenda(data.agenda);
         var arts, div, groupe, art, key;
         var groupes = [];
@@ -371,4 +395,6 @@ var laLettreFunctions = function(myApp, $$) {
 myApp.onPageInit('la-lettre', function(page) {
     console.log("La Lettre loaded!");
     laLettreFunctions(myApp, $$);
+    var bandeau = document.querySelector('.lettre-bandeau');
+    bandeau.style.display = "none";
 });

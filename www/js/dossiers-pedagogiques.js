@@ -38,7 +38,7 @@ var dossiersFunctions = function (myApp, $$) {
             for (var i in dossiers) {
                 listDossiers.append(feedDossier(dossiers[i]));
             }
-            $$('a').on('click', function (e) {
+            $$('.dossier a').on('click', function (e) {
                e.preventDefault();
                launchWebView(this.getAttribute('href'));
             });
@@ -53,4 +53,5 @@ var dossiersFunctions = function (myApp, $$) {
 
 myApp.onPageInit('dossiers-pedagogiques', function(page) {
     dossiersFunctions(myApp, $$);
+    activeBandeau();
 });

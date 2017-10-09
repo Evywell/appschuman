@@ -148,4 +148,5 @@ var opinionsFunctions = function (myApp, $$) {
 
 myApp.onPageInit('opinions', function(page) {
     opinionsFunctions(myApp, $$);
+    activeBandeau();
 });

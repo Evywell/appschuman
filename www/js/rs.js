@@ -36,7 +36,7 @@ var rsFunctions = function (myApp, $$) {
             for (var i in dossiers) {
                 listDossiers.append(feedDossier(dossiers[i]));
             }
-            $$('a').on('click', function (e) {
+            $$('.dossier a').on('click', function (e) {
                 e.preventDefault();
                 launchWebView(this.getAttribute('href'));
             });
@@ -51,4 +51,5 @@ var rsFunctions = function (myApp, $$) {
 
 myApp.onPageInit('rs', function(page) {
     rsFunctions(myApp, $$);
+    activeBandeau();
 });

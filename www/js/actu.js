@@ -150,4 +150,5 @@ var actuFunctions = function (myApp, $$) {
 
 myApp.onPageInit('actu', function(page) {
     actuFunctions(myApp, $$);
+    activeBandeau();
 });

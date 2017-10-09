@@ -108,3 +108,45 @@
     padding: 2px 5px;
     border-radius: 5px;
 }
+
+.my-notif {
+    display: none;
+    position: absolute;
+    top: 50px; left: 0;  right: 0;
+    min-height: 50px;
+    z-index: 2000000;
+    background: #FFF;
+    padding: 10px;
+    word-break: break-all;
+}
+
+.lettre-bandeau {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 70px;
+    border-top: 1px solid #e1ecf6;
+    background: #FFF;
+    z-index: 300000;
+}
+
+.lettre-bandeau .lettre-bandeau-content {
+    padding: 10px;
+    text-align: center;
+    line-height: 1.2em;
+}
+
+.lettre-bandeau .lettre-bandeau-content div {
+    margin-bottom: 7px;
+}
+
+.bandeau-show .actu,
+.bandeau-show .publications,
+.bandeau-show .evenements,
+.bandeau-show .opinions,
+.bandeau-show .elections,
+.bandeau-show .dossiers-pedagogiques,
+.bandeau-show .rs ,
+.bandeau-show .librairie {
+    height: calc(100% - 70px);
+}

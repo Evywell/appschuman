@@ -10,7 +10,17 @@ var mainView = myApp.addView('.view-main', {
     animatePages: false
 });
 
-mainView.router.load({ url: 'actu.html', reload: true })
+var showBandeau = false;
+
+function activeBandeau() {
+    if (showBandeau) {
+        var bandeau = document.querySelector('.lettre-bandeau');
+        bandeau.style.display = "block";
+        document.querySelector('.pages').classList.add('bandeau-show');
+    } else {
+        document.querySelector('.pages').classList.remove('bandeau-show');
+    }
+}
 
 // Vue de la lettre
 /*var lettreView = myApp.addView('.lettre-view', {
@@ -29,42 +39,25 @@ var librairieView = myApp.addView('.librairie');
 */
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
-    $$('.open-panel').on('click', function(e) {
-        e.preventDefault();
-    });
-
-    actuFunctions(myApp, $$);
-
     console.log('ready');
-    /*
-    var push = PushNotification.init({
-        android: {},
-        browser: {
-            pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-        },
-        ios: {
-            alert: "true",
-            badge: "true",
-            sound: "true"
-        },
-        windows: {}
+
+    $$.get('https://www.robert-schuman.eu/applilettre/ahead', null, function (data) {
+        data = JSON.parse(data);
+        if (data.lettre_a_head) {
+            mainView.router.load({url: 'la-lettre.html', reload: true});
+            laLettreFunctions(myApp, $$);
+        } else {
+            mainView.router.load({url: 'actu.html', reload: true});
+            actuFunctions(myApp, $$);
+        }
     });
 
-    push.on('registration', function(data) {
-        document.querySelector('body').innerHTML = data.registrationId;
-        console.log(data);
+    $$.get('https://www.robert-schuman.eu/applilettre/bandeau', null, function (data) {
+        data = JSON.parse(data);
+        if (data.bandeau) {
+            showBandeau = true;
+        }
     });
-
-    push.on('notifications', function(data) {
-        console.log(data);
-    });
-
-    push.on('error', function(e) {
-
-        document.querySelector('body').innerHTML = e;
-        console.log("Erreur", e);
-    });
-    */
 
     //FCMPlugin.onTokenRefresh( onTokenRefreshCallback(token) );
     //Note that this callback will be fired everytime a new token is generated, including the first time.
