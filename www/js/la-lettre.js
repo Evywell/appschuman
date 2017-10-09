@@ -1,4 +1,4 @@
-var laLettreFunctions = function(myApp, $$) {
+var laLettreFunctions = function(myApp, $$, applicationToken) {
     var debug = false;
 
     var baseUrl = debug ? 'http://localhost/applilettre/' : 'https://www.robert-schuman.eu/applilettre/';
@@ -89,7 +89,7 @@ var laLettreFunctions = function(myApp, $$) {
     });
 
     var registerLang = function (lang) {
-        $$.get(baseUrl + 'register/' + lang + '/' + deviceId, null, function (data) {
+        $$.get(baseUrl + 'register/' + lang + '/' + applicationToken, null, function (data) {
             console.log("Réponse du serveur pour l'enregistrement de la langue: ", data);
         });
     }
@@ -185,7 +185,7 @@ var laLettreFunctions = function(myApp, $$) {
 
 
     var calendarMonth = function (type, mois, annee, currentDate) {
-        $$.get(baseUrl + 'lettre/infos/' + mois + '/' + annee, null, function (data){
+        $$.get(baseUrl + 'lettre/infos/' + mois + '/' + annee + '/' + appLang, null, function (data){
             var data = JSON.parse(data);
             if (data.length == 0) {
                 if (type == 'previous') {
@@ -385,7 +385,7 @@ var laLettreFunctions = function(myApp, $$) {
         var month = (d.getMonth() + 1).toString();
         var year = d.getFullYear();
         month = parseMois(month);
-        $$.get(baseUrl + 'lettre/infos/' + month + '/' + year, null, function (data) {
+        $$.get(baseUrl + 'lettre/infos/' + month + '/' + year + '/' + appLang, null, function (data) {
             feedCalendar(JSON.parse(data), d);
         })
     });
@@ -394,7 +394,7 @@ var laLettreFunctions = function(myApp, $$) {
 
 myApp.onPageInit('la-lettre', function(page) {
     console.log("La Lettre loaded!");
-    laLettreFunctions(myApp, $$);
+    laLettreFunctions(myApp, $$, applicationToken);
     var bandeau = document.querySelector('.lettre-bandeau');
     bandeau.style.display = "none";
 });

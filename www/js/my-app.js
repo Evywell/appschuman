@@ -10,6 +10,7 @@ var mainView = myApp.addView('.view-main', {
     animatePages: false
 });
 
+var applicationToken = null;
 var showBandeau = false;
 
 function activeBandeau() {
@@ -65,7 +66,8 @@ $$(document).on('deviceready', function() {
         $$.get('https://www.robert-schuman.eu/applilettre/api/registration/fr/' + token, function(data) {
             alert(' Registration : ' + JSON.parse(data));
         });
-        alert(token);
+        applicationToken = token;
+        //alert(token);
     });
 
     //FCMPlugin.getToken( successCallback(token), errorCallback(err) );
@@ -74,7 +76,8 @@ $$(document).on('deviceready', function() {
         $$.get('https://www.robert-schuman.eu/applilettre/api/registration/fr/' + token, function(data) {
             alert(' Registration : ' + JSON.parse(data));
         });
-        alert(token);
+        applicationToken = token;
+        //alert(token);
     });
 
     //FCMPlugin.subscribeToTopic( topic, successCallback(msg), errorCallback(err) );
@@ -90,14 +93,14 @@ $$(document).on('deviceready', function() {
     FCMPlugin.onNotification(function(data) {
             if (data.wasTapped) {
                 //Notification was received on device tray and tapped by the user.
-                alert(JSON.stringify(data));
+                //alert(JSON.stringify(data));
             } else {
                 //Notification was received in foreground. Maybe the user needs to be notified.
-                alert(JSON.stringify(data));
+                //alert(JSON.stringify(data));
             }
         },
         function(msg) {
-            alert(JSON.stringify(msg));
+            //alert(JSON.stringify(msg));
         },
         function(err) {
             alert("Erreur onNotification :\n" + err);
