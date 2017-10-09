@@ -130,16 +130,30 @@ var opinionsFunctions = function (myApp, $$) {
         updateNavbar();
         // On vide la liste
         listOpinions.empty();
-        $$.get(opinionUrl, {lang: lang}, function (data){
-            articles = JSON.parse(data).articles;
-            for (var i in articles) {
-                listOpinions.append(feedOpinions(articles[i], i));
+        if (online) {
+            $$.get(opinionUrl, {lang: lang}, function (data){
+                setContentByKey('opinions', data);
+                articles = JSON.parse(data).articles;
+                for (var i in articles) {
+                    listOpinions.append(feedOpinions(articles[i], i));
+                }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadOpinion);
+            },function (err) {
+                console.error(err);
+            })
+        } else {
+            var cacheOpinions = getContentFromKey('opinions');
+            if (cacheOpinions != null) {
+                articles = JSON.parse(cacheOpinions).articles;
+                for (var i in articles) {
+                    listOpinions.append(feedOpinions(articles[i], i));
+                }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadOpinion);
             }
-            // Ajout des évenements du clique
-            $$('.list-lien').on('click', clickLoadOpinion);
-        },function (err) {
-            console.error(err);
-        })
+        }
+
     }
 
     loadOpinions(lang);

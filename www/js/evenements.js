@@ -126,16 +126,30 @@ var evenementsFunctions = function (myApp, $$) {
         updateNavbar();
         // On vide la liste
         listEve.empty();
-        $$.get(eveUrl, {lang: lang}, function (data){
-            articles = JSON.parse(data).articles;
-            for (var i in articles) {
-                listEve.append(feedEvenements(articles[i], i));
+        if (online) {
+            $$.get(eveUrl, {lang: lang}, function (data){
+                setContentByKey('evenements', data);
+                articles = JSON.parse(data).articles;
+                for (var i in articles) {
+                    listEve.append(feedEvenements(articles[i], i));
+                }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadEvenement);
+            },function (err) {
+                console.error(err);
+            })
+        } else {
+            var cacheEvenements = getContentFromKey('evenements');
+            if (cacheEvenements != null) {
+                articles = JSON.parse(cacheEvenements).articles;
+                for (var i in articles) {
+                    listEve.append(feedEvenements(articles[i], i));
+                }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadEvenement);
             }
-            // Ajout des évenements du clique
-            $$('.list-lien').on('click', clickLoadEvenement);
-        },function (err) {
-            console.error(err);
-        })
+        }
+
     }
 
     loadEvenements(lang);

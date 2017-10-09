@@ -159,19 +159,35 @@ var librairieFunctions = function (myApp, $$) {
         updateNavbar();
         // On vide la liste
         listArticle.empty();
-        $$.get(libUrl, {lang: lang}, function (data){
-            articles = JSON.parse(data);
-            console.log(articles);
-            for (var i in articles) {
-                if (articles[i].id_type == type) {
-                    listArticle.append(feedArticles(articles[i], i));
+        if (online) {
+            $$.get(libUrl, {lang: lang}, function (data){
+                setContentByKey('librairie', data);
+                articles = JSON.parse(data);
+                console.log(articles);
+                for (var i in articles) {
+                    if (articles[i].id_type == type) {
+                        listArticle.append(feedArticles(articles[i], i));
+                    }
                 }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadArticle);
+            },function (err) {
+                console.error(err);
+            })
+        } else {
+            var cacheLibrairie = getContentFromKey('librairie');
+            if (cacheLibrairie != null) {
+                articles = JSON.parse(cacheLibrairie);
+                for (var i in articles) {
+                    if (articles[i].id_type == type) {
+                        listArticle.append(feedArticles(articles[i], i));
+                    }
+                }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadArticle);
             }
-            // Ajout des évenements du clique
-            $$('.list-lien').on('click', clickLoadArticle);
-        },function (err) {
-            console.error(err);
-        })
+        }
+
     }
 
     var initFilters = function () {

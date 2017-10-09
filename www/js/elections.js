@@ -128,16 +128,30 @@ var electionsFunctions = function (myApp, $$) {
         updateNavbar();
         // On vide la liste
         listElections.empty();
-        $$.get(eveUrl, {lang: lang}, function (data){
-            articles = JSON.parse(data).articles;
-            for (var i in articles) {
-                listElections.append(feedElections(articles[i], i));
+        if (online) {
+            $$.get(eveUrl, {lang: lang}, function (data){
+                setContentByKey('elections', data);
+                articles = JSON.parse(data).articles;
+                for (var i in articles) {
+                    listElections.append(feedElections(articles[i], i));
+                }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadElection);
+            },function (err) {
+                console.error(err);
+            })
+        } else {
+            var cacheElections = getContentFromKey('elections');
+            if (cacheElections != null) {
+                articles = JSON.parse(cacheElections).articles;
+                for (var i in articles) {
+                    listElections.append(feedElections(articles[i], i));
+                }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadElection);
             }
-            // Ajout des évenements du clique
-            $$('.list-lien').on('click', clickLoadElection);
-        },function (err) {
-            console.error(err);
-        })
+        }
+
     }
 
     loadElections(lang);

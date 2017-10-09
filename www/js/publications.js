@@ -141,17 +141,31 @@ var publicationsFunctions = function (myApp, $$) {
         updateNavbar();
         // On vide la liste
         listPub.empty();
-        $$.get(actuUrl, {lang: lang}, function (data){
-            console.log(JSON.parse(data));
-            articles = JSON.parse(data).articles;
-            for (var i in articles) {
-                listPub.append(feedPublication(articles[i], i));
+        if (online) {
+            $$.get(actuUrl, {lang: lang}, function (data){
+                setContentByKey('publications', data);
+                console.log(JSON.parse(data));
+                articles = JSON.parse(data).articles;
+                for (var i in articles) {
+                    listPub.append(feedPublication(articles[i], i));
+                }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadArticle);
+            },function (err) {
+                console.error(err);
+            })
+        } else {
+            var cachePublications = getContentFromKey('publications');
+            if (cachePublications != null) {
+                articles = JSON.parse(cachePublications).articles;
+                for (var i in articles) {
+                    listPub.append(feedPublication(articles[i], i));
+                }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadArticle);
             }
-            // Ajout des évenements du clique
-            $$('.list-lien').on('click', clickLoadArticle);
-        },function (err) {
-            console.error(err);
-        })
+        }
+
     }
 
     loadPublications(lang);

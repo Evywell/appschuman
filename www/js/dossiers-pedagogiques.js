@@ -32,19 +32,35 @@ var dossiersFunctions = function (myApp, $$) {
     }
 
     var loadDossiers = function (lang) {
-        $$.get(dossiersUrl, {lang: lang}, function (data){
-            dossiers = JSON.parse(data).data;
-            listDossiers.empty();
-            for (var i in dossiers) {
-                listDossiers.append(feedDossier(dossiers[i]));
+        listDossiers.empty();
+        if (online) {
+            $$.get(dossiersUrl, {lang: lang}, function (data){
+                setContentByKey('dossiers', data);
+                dossiers = JSON.parse(data).data;
+                for (var i in dossiers) {
+                    listDossiers.append(feedDossier(dossiers[i]));
+                }
+                $$('.dossier a').on('click', function (e) {
+                    e.preventDefault();
+                    launchWebView(this.getAttribute('href'));
+                });
+            },function (err) {
+                console.error(err);
+            })
+        } else {
+            var cacheDossiers = getContentFromKey('dossiers');
+            if (cacheDossiers != null) {
+                dossiers = JSON.parse(cacheDossiers).data;
+                for (var i in dossiers) {
+                    listDossiers.append(feedDossier(dossiers[i]));
+                }
+                $$('.dossier a').on('click', function (e) {
+                    e.preventDefault();
+                    launchWebView(this.getAttribute('href'));
+                });
             }
-            $$('.dossier a').on('click', function (e) {
-               e.preventDefault();
-               launchWebView(this.getAttribute('href'));
-            });
-        },function (err) {
-            console.error(err);
-        })
+        }
+
     }
 
     loadDossiers(lang);
