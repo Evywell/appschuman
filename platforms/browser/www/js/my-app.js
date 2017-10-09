@@ -33,7 +33,7 @@ function getContentFromKey(key) {
 }
 
 function setContentByKey(key, content) {
-    window.localStorage[key] = content;
+    window.localStorage.setItem(key, content);
 }
 
 // Vue de la lettre
@@ -52,13 +52,13 @@ var rsView = myApp.addView('.rs');
 var librairieView = myApp.addView('.librairie');
 */
 // Handle Cordova Device Ready Event
-$$(document).on('online', function (){
+document.addEventListener('online', function (){
     online = true;
+    console.log('Device ', online ? 'online': 'offline');
 });
 
 $$(document).on('deviceready', function() {
     console.log('ready');
-    console.log('Device ', online ? 'online': 'offline');
 
     if (online) {
         $$.get('http://localhost/applilettre/ahead', null, function (data) {

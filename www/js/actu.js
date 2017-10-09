@@ -133,8 +133,9 @@ var actuFunctions = function (myApp, $$) {
         mode = 'liste';
         updateNavbar();
         listActu.empty();
-        articles = getContentFromKey('actu');
-        if (!online && articles != null) {
+        var cacheActu = getContentFromKey('actu');
+        if (!online && cacheActu != null) {
+            articles = JSON.parse(cacheActu);
             for (var i = 0; i < articles.length; i++) {
                 listActu.append(feedActu(articles[i], i));
             }
@@ -145,10 +146,10 @@ var actuFunctions = function (myApp, $$) {
         } else {
             $$.get(actuUrl, {lang: lang}, function (data){
                 articles = JSON.parse(data).articles;
-                setContentByKey('actu', articles);
                 for (var i = 0; i < articles.length; i++) {
                     listActu.append(feedActu(articles[i], i));
                 }
+                setContentByKey('actu', data);
                 // Ajout des évenements du clique
                 $$('.list-lien').on('click', clickLoadActu);
             }, function (err) {

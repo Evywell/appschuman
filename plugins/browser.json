@@ -18,6 +18,9 @@
         },
         "cordova-plugin-fcm": {
             "PACKAGE_NAME": "com.schuman.app"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.digiplace.fondation-Robert-Schuman"
         }
     },
     "dependent_plugins": {}
