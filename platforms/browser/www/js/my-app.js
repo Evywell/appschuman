@@ -4,6 +4,8 @@ var myApp = new Framework7();
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
+var online = false;
+
 // Views
 var mainView = myApp.addView('.view-main', {
     dynamicNavbar: true,
@@ -23,6 +25,17 @@ function activeBandeau() {
     }
 }
 
+function getContentFromKey(key) {
+    if (window.localStorage[key]) {
+        return window.localStorage[key];
+    }
+    return null;
+}
+
+function setContentByKey(key, content) {
+    window.localStorage[key] = content;
+}
+
 // Vue de la lettre
 /*var lettreView = myApp.addView('.lettre-view', {
     // Désactivation de l'animation lors du clique sur le lien du side panel
@@ -39,26 +52,33 @@ var rsView = myApp.addView('.rs');
 var librairieView = myApp.addView('.librairie');
 */
 // Handle Cordova Device Ready Event
+$$(document).on('online', function (){
+    online = true;
+});
+
 $$(document).on('deviceready', function() {
     console.log('ready');
+    console.log('Device ', online ? 'online': 'offline');
 
-    $$.get('https://www.robert-schuman.eu/applilettre/ahead', null, function (data) {
-        data = JSON.parse(data);
-        if (data.lettre_a_head) {
-            mainView.router.load({url: 'la-lettre.html', reload: true});
-            laLettreFunctions(myApp, $$);
-        } else {
-            mainView.router.load({url: 'actu.html', reload: true});
-            actuFunctions(myApp, $$);
-        }
-    });
+    if (online) {
+        $$.get('http://localhost/applilettre/ahead', null, function (data) {
+            data = JSON.parse(data);
+            if (data.lettre_a_head) {
+                mainView.router.load({url: 'la-lettre.html', reload: true});
+                laLettreFunctions(myApp, $$);
+            } else {
+                mainView.router.load({url: 'actu.html', reload: true});
+                actuFunctions(myApp, $$);
+            }
+        });
 
-    $$.get('https://www.robert-schuman.eu/applilettre/bandeau', null, function (data) {
-        data = JSON.parse(data);
-        if (data.bandeau) {
-            showBandeau = true;
-        }
-    });
+        $$.get('http://localhost/applilettre/bandeau', null, function (data) {
+            data = JSON.parse(data);
+            if (data.bandeau) {
+                showBandeau = true;
+            }
+        });
+    }
 
     //FCMPlugin.onTokenRefresh( onTokenRefreshCallback(token) );
     //Note that this callback will be fired everytime a new token is generated, including the first time.
@@ -103,7 +123,7 @@ $$(document).on('deviceready', function() {
             //alert(JSON.stringify(msg));
         },
         function(err) {
-            alert("Erreur onNotification :\n" + err);
+            //alert("Erreur onNotification :\n" + err);
         }
     );
 });

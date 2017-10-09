@@ -133,16 +133,29 @@ var actuFunctions = function (myApp, $$) {
         mode = 'liste';
         updateNavbar();
         listActu.empty();
-        $$.get(actuUrl, {lang: lang}, function (data){
-            articles = JSON.parse(data).articles;
+        articles = getContentFromKey('actu');
+        if (!online && articles != null) {
             for (var i = 0; i < articles.length; i++) {
                 listActu.append(feedActu(articles[i], i));
             }
             // Ajout des évenements du clique
             $$('.list-lien').on('click', clickLoadActu);
-        }, function (err) {
-            console.log(err);
-        });
+        } else if (!online && !cache) {
+            alert("Vous devez vous connecter à internet pour afficher le ocntenu");
+        } else {
+            $$.get(actuUrl, {lang: lang}, function (data){
+                articles = JSON.parse(data).articles;
+                setContentByKey('actu', articles);
+                for (var i = 0; i < articles.length; i++) {
+                    listActu.append(feedActu(articles[i], i));
+                }
+                // Ajout des évenements du clique
+                $$('.list-lien').on('click', clickLoadActu);
+            }, function (err) {
+                console.log(err);
+            });
+        }
+
     }
 
     loadActu(lang);
