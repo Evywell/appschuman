@@ -135,7 +135,7 @@ var actuFunctions = function (myApp, $$) {
         listActu.empty();
         var cacheActu = getContentFromKey('actu');
         if (!online && cacheActu != null) {
-            articles = JSON.parse(cacheActu);
+            articles = JSON.parse(cacheActu).articles;
             for (var i = 0; i < articles.length; i++) {
                 listActu.append(feedActu(articles[i], i));
             }

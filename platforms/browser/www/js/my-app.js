@@ -53,7 +53,7 @@ var librairieView = myApp.addView('.librairie');
 */
 // Handle Cordova Device Ready Event
 document.addEventListener('online', function (){
-    online = true;
+    //online = true;
     console.log('Device ', online ? 'online': 'offline');
 });
 
