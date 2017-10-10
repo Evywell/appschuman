@@ -70,7 +70,7 @@ document.addEventListener('online', function (){
 });
 
 function initAHeadScreen() {
-    $$.get('http://localhost/applilettre/ahead', null, function (data) {
+    $$.get('https://robert-schuman.eu/applilettre/ahead', null, function (data) {
         data = JSON.parse(data);
         if (data.lettre_a_head) {
             mainView.router.load({url: 'la-lettre.html', reload: true});
@@ -81,7 +81,7 @@ function initAHeadScreen() {
         }
     });
 
-    $$.get('http://localhost/applilettre/bandeau', null, function (data) {
+    $$.get('https://robert-schuman.eu/applilettre/bandeau', null, function (data) {
         data = JSON.parse(data);
         if (data.bandeau) {
             showBandeau = true;

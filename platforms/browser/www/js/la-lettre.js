@@ -77,7 +77,9 @@ var laLettreFunctions = function(myApp, $$, applicationToken) {
 
     var changeLangue = function (langue) {
         appLang = langue;
-        window.localStorage.setItem('lang', appLang);
+        var settings = JSON.parse(getContentFromKey('settings'));
+        settings.lang = appLang;
+        setContentByKey('settings', JSON.stringify(settings));
     }
 
     var btnsLang = $$('.btn-lang-popover');
