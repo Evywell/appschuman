@@ -1,9 +1,13 @@
 var actuFunctions = function (myApp, $$) {
     var actuUrl = "http://www.euscope.eu/json/js.actualites.php";
-    var lang = 'fr';
+    var lang = getLangue();
 
     var textes = {
-        fr: { header_title: "Actu'" }
+        fr: { header_title: "Actu'" },
+        en: { header_title: "Actu'" },
+        de: { header_title: "Actu'" },
+        es: { header_title: "Actu'" },
+        pl: { header_title: "Actu'" }
     };
 
     var mode = 'liste';

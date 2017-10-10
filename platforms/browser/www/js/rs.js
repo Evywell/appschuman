@@ -1,12 +1,28 @@
 var rsFunctions = function (myApp, $$) {
     var rsUrl = "http://www.euscope.eu/json/js.rs.php";
-    var lang = 'fr';
+    var lang = getLangue();
     var dossiers = [];
 
     var listDossiers = $$('.dossiers');
 
     var textes = {
         fr: {
+            header_title: "Robert Schuman",
+            en_savoir_plus: "En savoir plus"
+        },
+        en: {
+            header_title: "Robert Schuman",
+            en_savoir_plus: "En savoir plus"
+        },
+        de: {
+            header_title: "Robert Schuman",
+            en_savoir_plus: "En savoir plus"
+        },
+        es: {
+            header_title: "Robert Schuman",
+            en_savoir_plus: "En savoir plus"
+        },
+        pl: {
             header_title: "Robert Schuman",
             en_savoir_plus: "En savoir plus"
         }

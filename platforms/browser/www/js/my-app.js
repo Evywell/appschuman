@@ -27,6 +27,7 @@ function activeBandeau() {
 
 function getContentFromKey(key) {
     if (window.localStorage[key]) {
+        console.log("Récuperation du cache pour", key);
         return window.localStorage[key];
     }
     return null;
@@ -34,6 +35,15 @@ function getContentFromKey(key) {
 
 function setContentByKey(key, content) {
     window.localStorage.setItem(key, content);
+    console.log("Actualisation du cache pour", key);
+}
+
+function getLangue() {
+    var settings = getContentFromKey('settings');
+    if (settings != null) {
+        return JSON.parse(settings).lang;
+    }
+    return 'fr';
 }
 
 // Vue de la lettre
@@ -51,33 +61,45 @@ var dossiersView = myApp.addView('.dossiers-predagogique');
 var rsView = myApp.addView('.rs');
 var librairieView = myApp.addView('.librairie');
 */
+
+
 // Handle Cordova Device Ready Event
 document.addEventListener('online', function (){
     online = true;
     console.log('Device ', online ? 'online': 'offline');
 });
 
+function initAHeadScreen() {
+    $$.get('http://localhost/applilettre/ahead', null, function (data) {
+        data = JSON.parse(data);
+        if (data.lettre_a_head) {
+            mainView.router.load({url: 'la-lettre.html', reload: true});
+            laLettreFunctions(myApp, $$);
+        } else {
+            mainView.router.load({url: 'actu.html', reload: true});
+            actuFunctions(myApp, $$);
+        }
+    });
+
+    $$.get('http://localhost/applilettre/bandeau', null, function (data) {
+        data = JSON.parse(data);
+        if (data.bandeau) {
+            showBandeau = true;
+        }
+    });
+}
+
 $$(document).on('deviceready', function() {
     console.log('ready');
-
-    if (online) {
-        $$.get('http://localhost/applilettre/ahead', null, function (data) {
-            data = JSON.parse(data);
-            if (data.lettre_a_head) {
-                mainView.router.load({url: 'la-lettre.html', reload: true});
-                laLettreFunctions(myApp, $$);
-            } else {
-                mainView.router.load({url: 'actu.html', reload: true});
-                actuFunctions(myApp, $$);
-            }
-        });
-
-        $$.get('http://localhost/applilettre/bandeau', null, function (data) {
-            data = JSON.parse(data);
-            if (data.bandeau) {
-                showBandeau = true;
-            }
-        });
+    // Check si c'est la première fois qu'il ouvre l'application
+    var cacheSettings = getContentFromKey('settings');
+    if (cacheSettings === null) {
+        // Première connection
+        mainView.router.load({url: 'settings.html', reload: true});
+    } else {
+        if (online) {
+            initAHeadScreen();
+        }
     }
 
     //FCMPlugin.onTokenRefresh( onTokenRefreshCallback(token) );

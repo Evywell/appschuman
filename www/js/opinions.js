@@ -1,9 +1,25 @@
 var opinionsFunctions = function (myApp, $$) {
     var opinionUrl = "http://www.euscope.eu/json/js.opinions.php";
-    var lang = 'fr';
+    var lang = getLangue();
 
     var textes = {
         fr: {
+            header_title: "Opinions",
+            auteur: "Par"
+        },
+        en: {
+            header_title: "Opinions",
+            auteur: "Par"
+        },
+        de: {
+            header_title: "Opinions",
+            auteur: "Par"
+        },
+        es: {
+            header_title: "Opinions",
+            auteur: "Par"
+        },
+        pl: {
             header_title: "Opinions",
             auteur: "Par"
         }

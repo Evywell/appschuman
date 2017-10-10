@@ -4,7 +4,7 @@ var laLettreFunctions = function(myApp, $$, applicationToken) {
     var baseUrl = debug ? 'http://localhost/applilettre/' : 'https://www.robert-schuman.eu/applilettre/';
 
     var deviceId;
-    var appLang = window.localStorage.lang || 'fr';
+    var appLang = getLangue();
     console.log('Device language', appLang);
 
     var noLanguageLetter = {fr: "Aucune lettre", en: "No letter", es: "No letter", de: "No letter", pl: "No letter"}

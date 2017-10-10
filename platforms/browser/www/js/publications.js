@@ -1,9 +1,25 @@
 var publicationsFunctions = function (myApp, $$) {
     var actuUrl = "http://www.euscope.eu/json/js.publications.php";
-    var lang = 'fr';
+    var lang = getLangue();
 
     var textes = {
         fr: {
+            header_title: "Publications",
+            auteur: "Par"
+        },
+        en: {
+            header_title: "Publications",
+            auteur: "Par"
+        },
+        de: {
+            header_title: "Publications",
+            auteur: "Par"
+        },
+        es: {
+            header_title: "Publications",
+            auteur: "Par"
+        },
+        pl: {
             header_title: "Publications",
             auteur: "Par"
         }
@@ -144,7 +160,6 @@ var publicationsFunctions = function (myApp, $$) {
         if (online) {
             $$.get(actuUrl, {lang: lang}, function (data){
                 setContentByKey('publications', data);
-                console.log(JSON.parse(data));
                 articles = JSON.parse(data).articles;
                 for (var i in articles) {
                     listPub.append(feedPublication(articles[i], i));

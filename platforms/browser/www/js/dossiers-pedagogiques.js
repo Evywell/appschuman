@@ -1,10 +1,14 @@
 var dossiersFunctions = function (myApp, $$) {
     var dossiersUrl = "http://www.euscope.eu/json/js.dossiers-pedagogiques.php";
-    var lang = 'fr';
+    var lang = getLangue();
     var dossiers = [];
 
     var textes = {
-        fr: { header_title: "Dossiers pédagogiques" }
+        fr: { header_title: "Dossiers pédagogiques" },
+        en: { header_title: "Dossiers pédagogiques" },
+        de: { header_title: "Dossiers pédagogiques" },
+        es: { header_title: "Dossiers pédagogiques" },
+        pl: { header_title: "Dossiers pédagogiques" }
     };
 
     $$('.navbar .center').html(textes[lang]['header_title']);

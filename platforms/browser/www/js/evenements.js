@@ -1,9 +1,13 @@
 var evenementsFunctions = function (myApp, $$) {
     var eveUrl = "http://www.euscope.eu/json/js.evenements.php";
-    var lang = 'fr';
+    var lang = getLangue();
 
     var textes = {
-        fr: { header_title: "Evenements" }
+        fr: { header_title: "Evenements" },
+        en: { header_title: "Evenements" },
+        de: { header_title: "Evenements" },
+        es: { header_title: "Evenements" },
+        pl: { header_title: "Evenements" }
     };
 
     $$('.navbar .center').html(textes[lang]['header_title']);

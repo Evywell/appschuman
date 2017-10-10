@@ -1,10 +1,14 @@
 var electionsFunctions = function (myApp, $$) {
     var eveUrl = "http://www.euscope.eu/json/js.elections.php";
-    var lang = 'fr';
+    var lang = getLangue();
 
 
     var textes = {
-        fr: { header_title: "Elections", article_auteur: "Par" }
+        fr: { header_title: "Elections", article_auteur: "Par" },
+        en: { header_title: "Elections", article_auteur: "Par" },
+        de: { header_title: "Elections", article_auteur: "Par" },
+        es: { header_title: "Elections", article_auteur: "Par" },
+        pl: { header_title: "Elections", article_auteur: "Par" }
     };
 
     $$('.navbar .center').html(textes[lang]['header_title']);

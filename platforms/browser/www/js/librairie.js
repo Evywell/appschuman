@@ -1,9 +1,49 @@
 var librairieFunctions = function (myApp, $$) {
     var libUrl = "http://www.euscope.eu/json/js.librairie.php";
-    var lang = 'fr';
+    var lang = getLangue();
 
     var textes = {
         fr: {
+            header_title: "Librairie",
+            autres_publication: "Autres publications",
+            notes: "Notes",
+            rapport_schuman: "Le Rapport Schuman",
+            pour_europe: "Pour l'Europe",
+            editeur: "Editeur",
+            nb_pages: "Nombre de pages",
+            commander: "En savoir plus en commander"
+        },
+        en: {
+            header_title: "Librairie",
+            autres_publication: "Autres publications",
+            notes: "Notes",
+            rapport_schuman: "Le Rapport Schuman",
+            pour_europe: "Pour l'Europe",
+            editeur: "Editeur",
+            nb_pages: "Nombre de pages",
+            commander: "En savoir plus en commander"
+        },
+        de: {
+            header_title: "Librairie",
+            autres_publication: "Autres publications",
+            notes: "Notes",
+            rapport_schuman: "Le Rapport Schuman",
+            pour_europe: "Pour l'Europe",
+            editeur: "Editeur",
+            nb_pages: "Nombre de pages",
+            commander: "En savoir plus en commander"
+        },
+        es: {
+            header_title: "Librairie",
+            autres_publication: "Autres publications",
+            notes: "Notes",
+            rapport_schuman: "Le Rapport Schuman",
+            pour_europe: "Pour l'Europe",
+            editeur: "Editeur",
+            nb_pages: "Nombre de pages",
+            commander: "En savoir plus en commander"
+        },
+        pl: {
             header_title: "Librairie",
             autres_publication: "Autres publications",
             notes: "Notes",
@@ -163,7 +203,6 @@ var librairieFunctions = function (myApp, $$) {
             $$.get(libUrl, {lang: lang}, function (data){
                 setContentByKey('librairie', data);
                 articles = JSON.parse(data);
-                console.log(articles);
                 for (var i in articles) {
                     if (articles[i].id_type == type) {
                         listArticle.append(feedArticles(articles[i], i));
