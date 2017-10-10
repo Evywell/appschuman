@@ -74,7 +74,7 @@ function initAHeadScreen() {
         data = JSON.parse(data);
         if (data.lettre_a_head) {
             mainView.router.load({url: 'la-lettre.html', reload: true});
-            laLettreFunctions(myApp, $$);
+            laLettreFunctions(myApp, $$, applicationToken);
         } else {
             mainView.router.load({url: 'actu.html', reload: true});
             actuFunctions(myApp, $$);
@@ -91,22 +91,12 @@ function initAHeadScreen() {
 
 $$(document).on('deviceready', function() {
     console.log('ready');
-    // Check si c'est la première fois qu'il ouvre l'application
-    var cacheSettings = getContentFromKey('settings');
-    if (cacheSettings === null) {
-        // Première connection
-        mainView.router.load({url: 'settings.html', reload: true});
-    } else {
-        if (online) {
-            initAHeadScreen();
-        }
-    }
 
     //FCMPlugin.onTokenRefresh( onTokenRefreshCallback(token) );
     //Note that this callback will be fired everytime a new token is generated, including the first time.
     FCMPlugin.onTokenRefresh(function(token) {
         $$.get('https://www.robert-schuman.eu/applilettre/api/registration/fr/' + token, function(data) {
-            alert(' Registration : ' + JSON.parse(data));
+            //alert(' Registration : ' + JSON.parse(data));
         });
         applicationToken = token;
         //alert(token);
@@ -148,4 +138,15 @@ $$(document).on('deviceready', function() {
             //alert("Erreur onNotification :\n" + err);
         }
     );
+
+    // Check si c'est la première fois qu'il ouvre l'application
+    var cacheSettings = getContentFromKey('settings');
+    if (cacheSettings === null) {
+        // Première connexion
+        mainView.router.load({url: 'settings.html', reload: true});
+    } else {
+        if (online) {
+            initAHeadScreen();
+        }
+    }
 });

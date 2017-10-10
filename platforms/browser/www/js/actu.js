@@ -146,7 +146,7 @@ var actuFunctions = function (myApp, $$) {
             // Ajout des évenements du clique
             $$('.list-lien').on('click', clickLoadActu);
         } else if (!online && !cache) {
-            alert("Vous devez vous connecter à internet pour afficher le ocntenu");
+            alert("Vous devez vous connecter à internet pour afficher le contenu");
         } else {
             $$.get(actuUrl, {lang: lang}, function (data){
                 articles = JSON.parse(data).articles;
