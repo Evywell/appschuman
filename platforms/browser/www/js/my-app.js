@@ -89,13 +89,19 @@ function initAHeadScreen() {
     });
 }
 
-$$(document).on('deviceready', function() {
-    console.log('ready');
-
+function registration() {
     //FCMPlugin.onTokenRefresh( onTokenRefreshCallback(token) );
     //Note that this callback will be fired everytime a new token is generated, including the first time.
     FCMPlugin.onTokenRefresh(function(token) {
-        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/fr/' + token, function(data) {
+        var settingsStr = getContentFromKey('settings');
+        var accordNotification = false;
+        if (settingsStr != null) {
+            var settings = JSON.parse(settingsStr);
+            if(settings.notification === true) {
+                accordNotification = true;
+            }
+        }
+        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + token + '?accord=' + accordNotification, function(data) {
             //alert(' Registration : ' + JSON.parse(data));
         });
         applicationToken = token;
@@ -105,7 +111,15 @@ $$(document).on('deviceready', function() {
     //FCMPlugin.getToken( successCallback(token), errorCallback(err) );
     //Keep in mind the function will return null if the token has not been established yet.
     FCMPlugin.getToken(function(token) {
-        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/fr/' + token, function(data) {
+        var settingsStr = getContentFromKey('settings');
+        var accordNotification = false;
+        if (settingsStr != null) {
+            var settings = JSON.parse(settingsStr);
+            if(settings.notifications === true) {
+                accordNotification = true;
+            }
+        }
+        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + token + '?accord=' + accordNotification, function(data) {
             //alert(' Registration : ' + JSON.parse(data));
         });
         applicationToken = token;
@@ -138,6 +152,10 @@ $$(document).on('deviceready', function() {
             //alert("Erreur onNotification :\n" + err);
         }
     );
+}
+
+$$(document).on('deviceready', function() {
+    console.log('ready');
 
     // Check si c'est la première fois qu'il ouvre l'application
     var cacheSettings = getContentFromKey('settings');
@@ -146,6 +164,7 @@ $$(document).on('deviceready', function() {
         mainView.router.load({url: 'settings.html', reload: true});
     } else {
         if (online) {
+            registration();
             initAHeadScreen();
         }
     }

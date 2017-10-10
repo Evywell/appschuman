@@ -49,24 +49,6 @@ var laLettreFunctions = function(myApp, $$, applicationToken) {
     var launchWebView = function (href) {
         var ref = cordova.InAppBrowser.open(encodeURI(href), "_blank", 'location=yes');
         ref.show();
-
-        setTimeout(function () {
-            var body = document.querySelector('body');
-            var element = document.createElement('div')
-            element.style.position = "absolute";
-            element.style.left = "0";
-            element.style.right = "0";
-            element.style.bottom = "0";
-            element.style.height = "10vh";
-            element.style.background = "#FFF";
-            element.style.zIndex = "99999999999999999999999";
-            element.innerHTML = '<a data-href="' + href + '">Si la page ne s\'affiche pas, cliquez ici</a>';
-            body.appendChild(element);
-            element.addEventListener('click', function () {
-                launchNavigator(this.childNodes[0].dataset.href);
-            });
-        }, 2000);
-
     }
 
     // Lettre courante

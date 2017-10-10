@@ -54,6 +54,7 @@ var settingsFunctions = function (myApp, $$) {
         var settings = {lang: lang, notifications: notifications_active};
         setContentByKey('settings', JSON.stringify(settings));
         initAHeadScreen();
+        registration();
         $$('.navbar').show();
     }
 
