@@ -106,7 +106,7 @@ $$(document).on('deviceready', function() {
     //Keep in mind the function will return null if the token has not been established yet.
     FCMPlugin.getToken(function(token) {
         $$.get('https://www.robert-schuman.eu/applilettre/api/registration/fr/' + token, function(data) {
-            alert(' Registration : ' + JSON.parse(data));
+            //alert(' Registration : ' + JSON.parse(data));
         });
         applicationToken = token;
         //alert(token);
