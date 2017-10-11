@@ -386,6 +386,12 @@ var laLettreFunctions = function(myApp, $$, applicationToken) {
         }
     }
 
+    // Bouton de langue au chargement
+    btnsLang.each(function () {
+        this.classList.remove('disabled');
+    });
+    $$('.btn-lang-popover[data-lang="' + getLangue() + '"]').addClass('disabled');
+
 
 };
 
