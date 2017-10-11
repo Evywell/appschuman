@@ -1,0 +1,66 @@
+.list {
+    padding: 0;
+    list-style-type: none;
+    background: #FFF;
+    overflow-y: scroll;
+    margin: 50px 0 0;
+}
+
+.list .list-lien {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+    color: inherit;
+}
+
+.list .list-picto, .list .list-texte {
+    display: table-cell;
+}
+
+.list .list-picto {
+    width: 100px;
+    vertical-align: top;
+}
+.list .list-picto img {
+    display: block;
+    width: 100%;
+    margin: auto;
+}
+
+.shadow {
+    box-shadow: 0 0 8px #ccc;
+    border-radius: 4px;
+}
+
+.list .list-texte {
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+.list .list-texte .titre-apercu {
+    font-weight: 500;
+    color: #045ba6;
+}
+
+.list .list-texte .texte-apercu .pub-date-apercu {
+    display: block;
+    font-size: small;
+}
+
+.article .rsButtonParent {
+    text-align: right;
+    margin: 10px auto;
+}
+
+.article .rsButtonParent a {
+    min-width: 100px;
+    display: inline-block;
+    text-decoration: none;
+    background: #007ac7;
+    color: #f3f3f3;
+    text-align: center;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
