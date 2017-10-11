@@ -45,6 +45,16 @@ var settingsFunctions = function (myApp, $$) {
         reloadMenu(lang);
     }
 
+    function changeNotifCheck() {
+        var settings = getContentFromKey('settings');
+        if (settings != null) {
+            var notifications = JSON.parse(settings).notifications;
+            if (!notifications) {
+                checkbox.removeAttribute('checked');
+            }
+        }
+    }
+
     function reloadMenu(lang) {
         divTitre.innerText = textes[lang].configuration_titre;
         divChoixLangue.innerText = textes[lang].choix_langue;
@@ -62,10 +72,11 @@ var settingsFunctions = function (myApp, $$) {
         document.querySelector('.lettre-bandeau').style.visibility = "visible";
         initAHeadScreen();
         registration();
-        updateNotificationAccord(notifications_active);
+        updateNotificationAccord(JSON.stringify(notifications_active));
     }
 
     changeLangActive(lang);
+    changeNotifCheck();
 
 }
 

@@ -24,6 +24,9 @@
         },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.digiplace.fondation-Robert-Schuman"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.digiplace.fondation-Robert-Schuman"
         }
     },
     "dependent_plugins": {}

@@ -14,6 +14,7 @@ var mainView = myApp.addView('.view-main', {
 
 var applicationToken = null;
 var showBandeau = false;
+var devicePlatform;
 
 function activeBandeau() {
     if (showBandeau) {
@@ -91,7 +92,7 @@ function initAHeadScreen() {
 
 function updateNotificationAccord(accord) {
     if (applicationToken) {
-        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + applicationToken + '?accord=' + accord, function(data) {
+        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + applicationToken + '/' + devicePlateform + '?accord=' + accord, function(data) {
             //alert(' Registration : ' + JSON.parse(data));
         });
     }
@@ -109,7 +110,7 @@ function registration() {
                 accordNotification = true;
             }
         }
-        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + token + '?accord=' + accordNotification, function(data) {
+        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + token + '/' + devicePlatform + '?accord=' + accordNotification, function(data) {
             //alert(' Registration : ' + JSON.parse(data));
         });
         applicationToken = token;
@@ -127,7 +128,7 @@ function registration() {
                 accordNotification = true;
             }
         }
-        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + token + '?accord=' + accordNotification, function(data) {
+        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + token + '/' + devicePlatform + '?accord=' + accordNotification, function(data) {
             //alert(' Registration : ' + JSON.parse(data));
         });
         applicationToken = token;
@@ -164,6 +165,7 @@ function registration() {
 
 $$(document).on('deviceready', function() {
     console.log('ready');
+    devicePlatform = device.platform;
     setTimeout(function () {
         navigator.splashscreen.hide();
     }, 3000);
