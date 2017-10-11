@@ -156,7 +156,9 @@ function registration() {
 
 $$(document).on('deviceready', function() {
     console.log('ready');
-
+    setTimeout(function () {
+        navigator.splashscreen.hide();
+    }, 3000);
     // Check si c'est la première fois qu'il ouvre l'application
     var cacheSettings = getContentFromKey('settings');
     if (cacheSettings === null) {
