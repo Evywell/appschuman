@@ -62,6 +62,7 @@ var settingsFunctions = function (myApp, $$) {
         document.querySelector('.lettre-bandeau').style.visibility = "visible";
         initAHeadScreen();
         registration();
+        updateNotificationAccord(notifications_active);
     }
 
     changeLangActive(lang);

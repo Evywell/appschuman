@@ -89,6 +89,14 @@ function initAHeadScreen() {
     });
 }
 
+function updateNotificationAccord(accord) {
+    if (applicationToken) {
+        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + applicationToken + '?accord=' + accord, function(data) {
+            //alert(' Registration : ' + JSON.parse(data));
+        });
+    }
+}
+
 function registration() {
     //FCMPlugin.onTokenRefresh( onTokenRefreshCallback(token) );
     //Note that this callback will be fired everytime a new token is generated, including the first time.
