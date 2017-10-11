@@ -1,6 +1,6 @@
 var settingsFunctions = function (myApp, $$) {
 
-    var lang = 'fr';
+    var lang = getLangue() || 'fr';
     var notifications_active = true;
 
     // Divs
@@ -36,8 +36,12 @@ var settingsFunctions = function (myApp, $$) {
     function changeLanguage(e) {
         e.preventDefault();
         lang = this.dataset.lang;
+        changeLangActive(lang);
+    }
+
+    function changeLangActive(lang) {
         $$('.settings .settings-content .block-buttons button').removeClass('active');
-        this.classList.add('active');
+        $$('.settings .settings-content .block-buttons button[data-lang="' + lang + '"]').addClass('active');
         reloadMenu(lang);
     }
 
@@ -53,15 +57,20 @@ var settingsFunctions = function (myApp, $$) {
         e.preventDefault();
         var settings = {lang: lang, notifications: notifications_active};
         setContentByKey('settings', JSON.stringify(settings));
+        document.querySelector('.navbar').classList.remove('navbar-hidden');
+        document.querySelector('.navbar').style.display = "block";
+        document.querySelector('.lettre-bandeau').style.visibility = "visible";
         initAHeadScreen();
         registration();
-        $$('.navbar').show();
     }
+
+    changeLangActive(lang);
 
 }
 
 myApp.onPageInit('settings', function(page) {
-    $$('.navbar').hide();
+    document.querySelector('.navbar').style.display = "none";
+    document.querySelector('.lettre-bandeau').style.visibility = "hidden";
     settingsFunctions(myApp, $$);
     activeBandeau();
 });

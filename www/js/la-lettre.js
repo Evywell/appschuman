@@ -73,6 +73,10 @@ var laLettreFunctions = function(myApp, $$, applicationToken) {
     });
 
     var registerLang = function (lang) {
+        if (!online) {
+            alert('Vous êtes hors connexion');
+            return;
+        }
         $$.get(baseUrl + 'register/' + lang + '/' + applicationToken, null, function (data) {
             console.log("Réponse du serveur pour l'enregistrement de la langue: ", data);
         });
@@ -359,20 +363,29 @@ var laLettreFunctions = function(myApp, $$, applicationToken) {
         $$('.calendar-popover').css('top', '50%').transform('translateY(-50%)');
     })
 
-    $$.get(baseUrl + 'last/' + appLang, null, function (data) {
-        feedLettre(JSON.parse(data));
+    if (online) {
+        $$.get(baseUrl + 'last/' + appLang, null, function (data) {
+            setContentByKey('la-lettre', data);
+            feedLettre(JSON.parse(data));
 
-        /**
-         * Récuparation des lettres du mois pour le calendrier
-         */
-        var d = new Date();
-        var month = (d.getMonth() + 1).toString();
-        var year = d.getFullYear();
-        month = parseMois(month);
-        $$.get(baseUrl + 'lettre/infos/' + month + '/' + year + '/' + appLang, null, function (data) {
-            feedCalendar(JSON.parse(data), d);
-        })
-    });
+            /**
+             * Récuparation des lettres du mois pour le calendrier
+             */
+            var d = new Date();
+            var month = (d.getMonth() + 1).toString();
+            var year = d.getFullYear();
+            month = parseMois(month);
+            $$.get(baseUrl + 'lettre/infos/' + month + '/' + year + '/' + appLang, null, function (data) {
+                feedCalendar(JSON.parse(data), d);
+            })
+        });
+    } else {
+        var cacheLettre = getContentFromKey('la-lettre');
+        if (cacheLettre != null) {
+            feedLettre(JSON.parse(cacheLettre));
+        }
+    }
+
 
 };
 

@@ -148,7 +148,9 @@ var actuFunctions = function (myApp, $$) {
         } else if (!online && !cache) {
             alert("Vous devez vous connecter à internet pour afficher le contenu");
         } else {
-            $$.get(actuUrl, {lang: lang}, function (data){
+            console.log(getLangue());
+            $$.get(actuUrl, {lang: getLangue()}, function (data){
+                console.log(data);
                 articles = JSON.parse(data).articles;
                 for (var i = 0; i < articles.length; i++) {
                     listActu.append(feedActu(articles[i], i));
