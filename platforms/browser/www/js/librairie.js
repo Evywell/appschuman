@@ -11,47 +11,47 @@ var librairieFunctions = function (myApp, $$) {
             pour_europe: "Pour l'Europe",
             editeur: "Editeur",
             nb_pages: "Nombre de pages",
-            commander: "En savoir plus en commander"
+            commander: "En savoir plus et commander"
         },
         en: {
-            header_title: "Librairie",
-            autres_publication: "Autres publications",
+            header_title: "Bookshop",
+            autres_publication: "Other publications",
             notes: "Notes",
             rapport_schuman: "Le Rapport Schuman",
             pour_europe: "Pour l'Europe",
-            editeur: "Editeur",
-            nb_pages: "Nombre de pages",
-            commander: "En savoir plus en commander"
+            editeur: "Editor",
+            nb_pages: "Page count",
+            commander: "En savoir plus et commander"
         },
         de: {
-            header_title: "Librairie",
+            header_title: "Bookshop",
             autres_publication: "Autres publications",
             notes: "Notes",
             rapport_schuman: "Le Rapport Schuman",
             pour_europe: "Pour l'Europe",
             editeur: "Editeur",
             nb_pages: "Nombre de pages",
-            commander: "En savoir plus en commander"
+            commander: "En savoir plus et commander"
         },
         es: {
-            header_title: "Librairie",
+            header_title: "Bookshop",
             autres_publication: "Autres publications",
             notes: "Notes",
             rapport_schuman: "Le Rapport Schuman",
             pour_europe: "Pour l'Europe",
             editeur: "Editeur",
             nb_pages: "Nombre de pages",
-            commander: "En savoir plus en commander"
+            commander: "En savoir plus et commander"
         },
         pl: {
-            header_title: "Librairie",
+            header_title: "Bookshop",
             autres_publication: "Autres publications",
             notes: "Notes",
             rapport_schuman: "Le Rapport Schuman",
             pour_europe: "Pour l'Europe",
             editeur: "Editeur",
             nb_pages: "Nombre de pages",
-            commander: "En savoir plus en commander"
+            commander: "En savoir plus et commander"
         }
     };
 
@@ -200,7 +200,8 @@ var librairieFunctions = function (myApp, $$) {
         // On vide la liste
         listArticle.empty();
         if (online) {
-            $$.get(libUrl, {lang: lang}, function (data){
+            var l = (lang != 'fr' && lang != 'en') ? 'fr' : lang;
+            $$.get(libUrl, {lang: l}, function (data){
                 setContentByKey('librairie', data);
                 articles = JSON.parse(data);
                 for (var i in articles) {

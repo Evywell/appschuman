@@ -4,10 +4,10 @@ var actuFunctions = function (myApp, $$) {
 
     var textes = {
         fr: { header_title: "Actu'" },
-        en: { header_title: "Actu'" },
-        de: { header_title: "Actu'" },
-        es: { header_title: "Actu'" },
-        pl: { header_title: "Actu'" }
+        en: { header_title: "News" },
+        de: { header_title: "News'" },
+        es: { header_title: "News'" },
+        pl: { header_title: "News'" }
     };
 
     var mode = 'liste';
@@ -149,7 +149,11 @@ var actuFunctions = function (myApp, $$) {
             alert("Vous devez vous connecter à internet pour afficher le contenu");
         } else {
             console.log(getLangue());
-            $$.get(actuUrl, {lang: getLangue()}, function (data){
+            var l = getLangue();
+            if (l != 'fr' && l != 'en') {
+                l = 'fr';
+            }
+            $$.get(actuUrl, {lang: l}, function (data){
                 console.log(data);
                 articles = JSON.parse(data).articles;
                 for (var i = 0; i < articles.length; i++) {

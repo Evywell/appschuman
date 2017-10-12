@@ -9,19 +9,19 @@ var opinionsFunctions = function (myApp, $$) {
         },
         en: {
             header_title: "Opinions",
-            auteur: "Par"
+            auteur: "By"
         },
         de: {
             header_title: "Opinions",
-            auteur: "Par"
+            auteur: "By"
         },
         es: {
             header_title: "Opinions",
-            auteur: "Par"
+            auteur: "By"
         },
         pl: {
             header_title: "Opinions",
-            auteur: "Par"
+            auteur: "By"
         }
     };
 
@@ -147,7 +147,8 @@ var opinionsFunctions = function (myApp, $$) {
         // On vide la liste
         listOpinions.empty();
         if (online) {
-            $$.get(opinionUrl, {lang: lang}, function (data){
+            var l = (lang != 'fr' && lang != 'en') ? 'fr' : lang;
+            $$.get(opinionUrl, {lang: l}, function (data){
                 setContentByKey('opinions', data);
                 articles = JSON.parse(data).articles;
                 for (var i in articles) {

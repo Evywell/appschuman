@@ -5,10 +5,10 @@ var dossiersFunctions = function (myApp, $$) {
 
     var textes = {
         fr: { header_title: "Dossiers pédagogiques" },
-        en: { header_title: "Dossiers pédagogiques" },
-        de: { header_title: "Dossiers pédagogiques" },
-        es: { header_title: "Dossiers pédagogiques" },
-        pl: { header_title: "Dossiers pédagogiques" }
+        en: { header_title: "Our information files" },
+        de: { header_title: "Our information files" },
+        es: { header_title: "Our information files" },
+        pl: { header_title: "Our information files" }
     };
 
     $$('.navbar .center').html(textes[lang]['header_title']);
@@ -38,7 +38,8 @@ var dossiersFunctions = function (myApp, $$) {
     var loadDossiers = function (lang) {
         listDossiers.empty();
         if (online) {
-            $$.get(dossiersUrl, {lang: lang}, function (data){
+            var l = (lang != 'fr' && lang != 'en') ? 'fr' : lang;
+            $$.get(dossiersUrl, {lang: l}, function (data){
                 setContentByKey('dossiers', data);
                 dossiers = JSON.parse(data).data;
                 for (var i in dossiers) {

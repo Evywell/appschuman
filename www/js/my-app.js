@@ -127,6 +127,7 @@ function registration() {
                 accordNotification = true;
             }
         }
+        applicationToken = data.registrationId;
         $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + data.registrationId + '/' + devicePlatform + '?accord=' + accordNotification, function(data) {
             console.log('Enregistrement distant effectue');
             alert('Enregistrement distant effectue');

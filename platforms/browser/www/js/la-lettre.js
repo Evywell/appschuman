@@ -9,6 +9,7 @@ var laLettreFunctions = function(myApp, $$, applicationToken) {
 
     var noLanguageLetter = {fr: "Aucune lettre", en: "No letter", es: "No letter", de: "No letter", pl: "No letter"}
     var translations = {
+        la_lettre: {fr: "La Lettre", en: "The Letter", es: "La Carta", de: "Der Brief", pl: "Biuletyn"},
         auteur: {fr: "Auteur", en: "Author", es: "Autor", de: "Autor", pl: "Autor"},
         auteurs: {fr: "Auteurs", en: "Authors", es: "Autores", de: "Autoren", pl: "Autorzy"},
         sommaire: {fr: "Sommaire", en: "Contents", es: "Sumario", de: "Übersicht", pl: "treszczenie"},
@@ -30,6 +31,7 @@ var laLettreFunctions = function(myApp, $$, applicationToken) {
         $$('.btn-sommaire').text(translations.sommaire[appLang]);
         $$('.popover-content-calendar__head').text(translations.choix_lettre[appLang]);
         $$('.popover-content-lang__head').text(translations.versions_disponibles[appLang]);
+        $$('.navbar .center').text(translations.la_lettre[appLang]);
     }
 
     updateMenu();
@@ -62,6 +64,7 @@ var laLettreFunctions = function(myApp, $$, applicationToken) {
         var settings = JSON.parse(getContentFromKey('settings'));
         settings.lang = appLang;
         setContentByKey('settings', JSON.stringify(settings));
+        updatePanel(settings.lang);
     }
 
     var btnsLang = $$('.btn-lang-popover');

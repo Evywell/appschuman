@@ -14,7 +14,7 @@ var mainView = myApp.addView('.view-main', {
 
 var applicationToken = null;
 var showBandeau = false;
-var devicePlatform;
+var devicePlatform = null;
 
 function activeBandeau() {
     if (showBandeau) {
@@ -71,7 +71,7 @@ document.addEventListener('online', function (){
 });
 
 function initAHeadScreen() {
-    $$.get('http://robert-schuman.eu/applilettre/ahead', null, function (data) {
+    $$.get('https://robert-schuman.eu/applilettre/ahead', null, function (data) {
         data = JSON.parse(data);
         if (data.lettre_a_head) {
             mainView.router.load({url: 'la-lettre.html', reload: true});
@@ -92,34 +92,33 @@ function initAHeadScreen() {
 
 function updateNotificationAccord(accord) {
     if (applicationToken) {
-        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + applicationToken + '/' + devicePlateform + '?accord=' + accord, function(data) {
+        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + applicationToken + '/' + devicePlatform + '?accord=' + accord, function(data) {
             //alert(' Registration : ' + JSON.parse(data));
         });
     }
 }
 
 function registration() {
-    //FCMPlugin.onTokenRefresh( onTokenRefreshCallback(token) );
-    //Note that this callback will be fired everytime a new token is generated, including the first time.
-    FCMPlugin.onTokenRefresh(function(token) {
-        var settingsStr = getContentFromKey('settings');
-        var accordNotification = false;
-        if (settingsStr != null) {
-            var settings = JSON.parse(settingsStr);
-            if(settings.notification === true) {
-                accordNotification = true;
-            }
-        }
-        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + token + '/' + devicePlatform + '?accord=' + accordNotification, function(data) {
-            //alert(' Registration : ' + JSON.parse(data));
-        });
-        applicationToken = token;
-        //alert(token);
+    var push = PushNotification.init({
+        android: {
+            senderID: "847561506467"
+        },
+        browser: {
+            pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+        },
+        ios: {
+            alert: "true",
+            badge: "true",
+            sound: "true",
+            senderID: "847561506467",
+            gcmSandbox: true
+        },
+        windows: {}
     });
 
-    //FCMPlugin.getToken( successCallback(token), errorCallback(err) );
-    //Keep in mind the function will return null if the token has not been established yet.
-    FCMPlugin.getToken(function(token) {
+    push.on('registration', function(data) {
+        // data.registrationId
+        console.log('registration id: ' + data.registrationId);
         var settingsStr = getContentFromKey('settings');
         var accordNotification = false;
         if (settingsStr != null) {
@@ -128,39 +127,39 @@ function registration() {
                 accordNotification = true;
             }
         }
-        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + token + '/' + devicePlatform + '?accord=' + accordNotification, function(data) {
-            //alert(' Registration : ' + JSON.parse(data));
+        applicationToken = data.registrationId;
+        $$.get('https://www.robert-schuman.eu/applilettre/api/registration/' + getLangue() + '/' + data.registrationId + '/' + devicePlatform + '?accord=' + accordNotification, function(data) {
+            console.log('Enregistrement distant effectue');
+            alert('Enregistrement distant effectue');
         });
-        applicationToken = token;
-        //alert(token);
+
+        alert('RegistrationId: ' + data.registrationId);
     });
 
-    //FCMPlugin.subscribeToTopic( topic, successCallback(msg), errorCallback(err) );
-    //All devices are subscribed automatically to 'all' and 'ios' or 'android' topic respectively.
-    //Must match the following regular expression: "[a-zA-Z0-9-_.~%]{1,900}".
-    FCMPlugin.subscribeToTopic('topicExample');
+    push.on('notification', function(data) {
+        // data.message,
+        // data.title,
+        // data.count,
+        // data.sound,
+        // data.image,
+        // data.additionalData
+        console.log('Notification reveived!');
+        console.log(data);
+        alert(data.title + "\n" + data.message);
+    });
 
-    //FCMPlugin.unsubscribeFromTopic( topic, successCallback(msg), errorCallback(err) );
-    // FCMPlugin.unsubscribeFromTopic('topicExample');
+    push.on('error', function(e) {
+        // e.message
+        console.log('error on notification!');
+        console.log(e.message);
+        alert('Erreur Push: ' + e.message);
+    });
 
-    //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
-    //Here you define your application behaviour based on the notification data.
-    FCMPlugin.onNotification(function(data) {
-            if (data.wasTapped) {
-                //Notification was received on device tray and tapped by the user.
-                //alert(JSON.stringify(data));
-            } else {
-                //Notification was received in foreground. Maybe the user needs to be notified.
-                //alert(JSON.stringify(data));
-            }
-        },
-        function(msg) {
-            //alert(JSON.stringify(msg));
-        },
-        function(err) {
-            //alert("Erreur onNotification :\n" + err);
-        }
-    );
+    push.finish(function() {
+        console.log('success');
+    }, function() {
+        console.log('error');
+    }, 'push-1');
 }
 
 $$(document).on('deviceready', function() {
@@ -169,6 +168,7 @@ $$(document).on('deviceready', function() {
     setTimeout(function () {
         navigator.splashscreen.hide();
     }, 3000);
+    updatePanel(getLangue());
     // Check si c'est la première fois qu'il ouvre l'application
     var cacheSettings = getContentFromKey('settings');
     if (cacheSettings === null) {
@@ -183,3 +183,99 @@ $$(document).on('deviceready', function() {
         }
     }
 });
+
+
+var globalTraductions = {
+    fr: {
+        actu: 'actu\'',
+        la_lettre: 'la lettre',
+        publications: 'publications',
+        evenements: 'événements',
+        opinions: 'opinions',
+        elections: 'elections',
+        et_aussi: 'Et Aussi',
+        dossier_pedagogiques: 'dossiers pedagogiques',
+        rs: 'robert schuman',
+        librairie: 'librairie',
+        configuration: 'configuration'
+    },
+    en: {
+        actu: 'news',
+        la_lettre: 'the letter',
+        publications: 'publications',
+        evenements: 'events',
+        opinions: 'opinions',
+        elections: 'elections',
+        et_aussi: '&nbsp;',
+        dossier_pedagogiques: 'information files',
+        rs: 'robert schuman',
+        librairie: 'bookshop',
+        configuration: 'configuration'
+    },
+    de: {
+        actu: 'news',
+        la_lettre: 'the letter',
+        publications: 'publications',
+        evenements: 'events',
+        opinions: 'opinions',
+        elections: 'elections',
+        et_aussi: '&nbsp;',
+        dossier_pedagogiques: 'information files',
+        rs: 'robert schuman',
+        librairie: 'bookshop',
+        configuration: 'configuration'
+    },
+    es: {
+        actu: 'news',
+        la_lettre: 'the letter',
+        publications: 'publications',
+        evenements: 'events',
+        opinions: 'opinions',
+        elections: 'elections',
+        et_aussi: '&nbsp;',
+        dossier_pedagogiques: 'information files',
+        rs: 'robert schuman',
+        librairie: 'bookshop',
+        configuration: 'configuration'
+    },
+    pl: {
+        actu: 'news',
+        la_lettre: 'the letter',
+        publications: 'publications',
+        evenements: 'events',
+        opinions: 'opinions',
+        elections: 'elections',
+        et_aussi: '&nbsp;',
+        dossier_pedagogiques: 'information files',
+        rs: 'robert schuman',
+        librairie: 'bookshop',
+        configuration: 'configuration'
+    }
+};
+
+var panel = document.querySelector('.panel .content');
+var actu = panel.querySelector('a[data-menu="actu"]');
+var la_lettre = panel.querySelector('a[data-menu="lettre"]');
+var publications = panel.querySelector('a[data-menu="publications"]');
+var evenements = panel.querySelector('a[data-menu="evenements"]');
+var opinions = panel.querySelector('a[data-menu="opinions"]');
+var elections = panel.querySelector('a[data-menu="elections"]');
+var dossiers_pedagogiques = panel.querySelector('a[data-menu="dossiers_pedagogiques"]');
+var rs = panel.querySelector('a[data-menu="rs"]');
+var librairie = panel.querySelector('a[data-menu="librairie"]');
+var configuration = panel.querySelector('a[data-menu="configuration"]');
+var et_aussi = panel.querySelector('.separator');
+
+function updatePanel(lang) {
+    actu.innerText = globalTraductions[lang].actu;
+    la_lettre.innerText = globalTraductions[lang].la_lettre;
+    publications.innerText = globalTraductions[lang].publications;
+    evenements.innerText = globalTraductions[lang].evenements;
+    opinions.innerText = globalTraductions[lang].opinions;
+    elections.innerText = globalTraductions[lang].elections;
+    dossiers_pedagogiques.innerText = globalTraductions[lang].dossier_pedagogiques;
+    rs.innerText = globalTraductions[lang].rs;
+    librairie.innerText = globalTraductions[lang].librairie;
+    configuration.innerText = globalTraductions[lang].configuration;
+    et_aussi.innerHTML = globalTraductions[lang].et_aussi;
+}

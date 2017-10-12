@@ -5,10 +5,10 @@ var electionsFunctions = function (myApp, $$) {
 
     var textes = {
         fr: { header_title: "Elections", article_auteur: "Par" },
-        en: { header_title: "Elections", article_auteur: "Par" },
-        de: { header_title: "Elections", article_auteur: "Par" },
-        es: { header_title: "Elections", article_auteur: "Par" },
-        pl: { header_title: "Elections", article_auteur: "Par" }
+        en: { header_title: "Elections", article_auteur: "By" },
+        de: { header_title: "Elections", article_auteur: "By" },
+        es: { header_title: "Elections", article_auteur: "By" },
+        pl: { header_title: "Elections", article_auteur: "By" }
     };
 
     $$('.navbar .center').html(textes[lang]['header_title']);
@@ -133,7 +133,8 @@ var electionsFunctions = function (myApp, $$) {
         // On vide la liste
         listElections.empty();
         if (online) {
-            $$.get(eveUrl, {lang: lang}, function (data){
+            var l = (lang != 'fr' && lang != 'en') ? 'fr' : lang;
+            $$.get(eveUrl, {lang: l}, function (data){
                 setContentByKey('elections', data);
                 articles = JSON.parse(data).articles;
                 for (var i in articles) {
