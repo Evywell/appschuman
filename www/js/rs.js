@@ -12,19 +12,19 @@ var rsFunctions = function (myApp, $$) {
         },
         en: {
             header_title: "Robert Schuman",
-            en_savoir_plus: "En savoir plus"
+            en_savoir_plus: "Read more"
         },
         de: {
             header_title: "Robert Schuman",
-            en_savoir_plus: "En savoir plus"
+            en_savoir_plus: "Read more"
         },
         es: {
             header_title: "Robert Schuman",
-            en_savoir_plus: "En savoir plus"
+            en_savoir_plus: "Read more"
         },
         pl: {
             header_title: "Robert Schuman",
-            en_savoir_plus: "En savoir plus"
+            en_savoir_plus: "Read more"
         }
     };
 
@@ -48,7 +48,8 @@ var rsFunctions = function (myApp, $$) {
     var loadDossiers = function (lang) {
         listDossiers.empty();
         if (online) {
-            $$.get(rsUrl, {lang: lang}, function (data){
+            var l = (lang != 'fr' && lang != 'en') ? 'fr' : lang;
+            $$.get(rsUrl, {lang: l}, function (data){
                 setContentByKey('rs', data);
                 dossiers = JSON.parse(data).data;
                 for (var i in dossiers) {

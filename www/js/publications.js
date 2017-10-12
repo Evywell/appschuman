@@ -9,19 +9,19 @@ var publicationsFunctions = function (myApp, $$) {
         },
         en: {
             header_title: "Publications",
-            auteur: "Par"
+            auteur: "By"
         },
         de: {
             header_title: "Publications",
-            auteur: "Par"
+            auteur: "By"
         },
         es: {
             header_title: "Publications",
-            auteur: "Par"
+            auteur: "By"
         },
         pl: {
             header_title: "Publications",
-            auteur: "Par"
+            auteur: "By"
         }
     };
 
@@ -49,11 +49,11 @@ var publicationsFunctions = function (myApp, $$) {
     }
 
     articleBackBtn.on('click', function (e) {
-       e.preventDefault();
-       mode = 'liste';
-       updateNavbar();
-       divArticle.removeClass('show');
-       listPub.removeClass('hidden');
+        e.preventDefault();
+        mode = 'liste';
+        updateNavbar();
+        divArticle.removeClass('show');
+        listPub.removeClass('hidden');
     });
 
     articlePrevBtn.on('click', function (e) {
@@ -115,9 +115,9 @@ var publicationsFunctions = function (myApp, $$) {
         divArticle.empty();
         divArticle.html(feedArticle(articles[id]));
         $$('.ancre_href').on('click', function (e) {
-           e.preventDefault();
-           console.log(this.getAttribute('href'));
-           document.querySelector(this.getAttribute('href')).scrollIntoView(true);
+            e.preventDefault();
+            console.log(this.getAttribute('href'));
+            document.querySelector(this.getAttribute('href')).scrollIntoView(true);
         });
         divArticle.addClass('fadeIn show');
         mode = 'show';
@@ -158,7 +158,8 @@ var publicationsFunctions = function (myApp, $$) {
         // On vide la liste
         listPub.empty();
         if (online) {
-            $$.get(actuUrl, {lang: lang}, function (data){
+            var l = (lang != 'fr' && lang != 'en') ? 'fr' : lang;
+            $$.get(actuUrl, {lang: l}, function (data){
                 setContentByKey('publications', data);
                 articles = JSON.parse(data).articles;
                 for (var i in articles) {

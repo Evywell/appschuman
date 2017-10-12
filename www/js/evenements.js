@@ -4,10 +4,10 @@ var evenementsFunctions = function (myApp, $$) {
 
     var textes = {
         fr: { header_title: "Evenements" },
-        en: { header_title: "Evenements" },
-        de: { header_title: "Evenements" },
-        es: { header_title: "Evenements" },
-        pl: { header_title: "Evenements" }
+        en: { header_title: "Events" },
+        de: { header_title: "Events" },
+        es: { header_title: "Events" },
+        pl: { header_title: "Events" }
     };
 
     $$('.navbar .center').html(textes[lang]['header_title']);
@@ -131,7 +131,8 @@ var evenementsFunctions = function (myApp, $$) {
         // On vide la liste
         listEve.empty();
         if (online) {
-            $$.get(eveUrl, {lang: lang}, function (data){
+            var l = (lang != 'fr' && lang != 'en') ? 'fr' : lang;
+            $$.get(eveUrl, {lang: l}, function (data){
                 setContentByKey('evenements', data);
                 articles = JSON.parse(data).articles;
                 for (var i in articles) {
